@@ -6,15 +6,19 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "serve": "webpack serve --config webpack.dev.js",
-    "live": "live-server --no-browser dist"
+    "live": "live-server --no-browser dist",
+    "test": "jest --watch"
   },
   "author": "Sayed Ali Alwedaie",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-env": "^7.29.7",
+    "@jest/globals": "^30.5.1",
     "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^7.1.4",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.6",
+    "jest": "^30.5.1",
     "mini-css-extract-plugin": "^2.10.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.105.4",
