@@ -52,7 +52,9 @@ export function Gameboard() {
     }
 
     const cell = board[row][col];
-    if (cell.isShut) return;
+    if (cell.isShut) {
+      throw new Error("coordinates already shut");
+    }
     cell.isShut = true;
     if (cell.ship) cell.ship.hit();
   };
