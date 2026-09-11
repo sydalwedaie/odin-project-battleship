@@ -6,21 +6,21 @@ export function Gameboard() {
 
   const fleet = [];
 
-  const placeShip = (ship, [row, col], direction) => {
+  const placeShip = (ship, [row, col, orientation]) => {
     // Check for invalid inputs
     if (row > 9 || col > 9) {
       throw new Error("coordinates out of bounds");
     }
 
     if (
-      (direction === "h") & (col + ship.length > 9) ||
-      (direction === "v") & (row + ship.length > 9)
+      (orientation === "h") & (col + ship.length > 9) ||
+      (orientation === "v") & (row + ship.length > 9)
     ) {
       throw new Error("ship dimentations out of bounds");
     }
 
     // 3 branches: each checks for overlaps first
-    if (direction === "h") {
+    if (orientation === "h") {
       for (let i = 0; i < ship.length; i++) {
         if (board[row][col + i].ship) {
           throw new Error("ships overlap");
@@ -30,7 +30,7 @@ export function Gameboard() {
       for (let i = 0; i < ship.length; i++) {
         board[row][col + i].ship = ship;
       }
-    } else if (direction === "v") {
+    } else if (orientation === "v") {
       for (let i = 0; i < ship.length; i++) {
         if (board[row + i][col].ship) {
           throw new Error("ships overlap");
@@ -40,7 +40,7 @@ export function Gameboard() {
         board[row + i][col].ship = ship;
       }
     } else {
-      throw new Error("direction invalid");
+      throw new Error("orientation invalid");
     }
 
     fleet.push(ship);
