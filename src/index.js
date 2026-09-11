@@ -2,20 +2,20 @@ import "./assets/modern-normalize.css";
 import "./assets/reset.css";
 import "./index.css";
 import "./template.html";
-import { Ship } from "./game_logic/ship.js";
-import { Gameboard } from "./game_logic/gameboard.js";
+import { Player } from "./game_logic/player.js";
 
-const gameboard = Gameboard();
+const player = Player();
+player.initFormation([
+  [4, 7, "v"],
+  [5, 2, "h"],
+  [8, 1, "h"],
+  [1, 8, "v"],
+  [1, 1, "h"],
+]);
 
-gameboard.placeShip(Ship(5), [4, 7], "v");
-gameboard.placeShip(Ship(4), [5, 2], "h");
-gameboard.placeShip(Ship(3), [8, 1], "h");
-gameboard.placeShip(Ship(3), [1, 8], "v");
-gameboard.placeShip(Ship(2), [1, 1], "h");
+player.gameboard.receiveAttack([1, 1]);
+player.gameboard.receiveAttack([3, 2]);
+player.gameboard.receiveAttack([5, 4]);
+player.gameboard.receiveAttack([9, 4]);
 
-gameboard.receiveAttack([1, 1]);
-gameboard.receiveAttack([3, 2]);
-gameboard.receiveAttack([5, 4]);
-gameboard.receiveAttack([9, 4]);
-
-gameboard.printBoard();
+player.gameboard.printBoard();
