@@ -1,7 +1,7 @@
 import { Gameboard } from "./gameboard.js";
 import { Ship } from "./ship.js";
 
-export function Player() {
+export function Player(name) {
   const gameboard = Gameboard();
 
   const initFormation = (positions) => {
@@ -15,5 +15,5 @@ export function Player() {
     });
   };
 
-  return { gameboard, initFormation };
+  return { name, gameboard, initFormation };
 }
