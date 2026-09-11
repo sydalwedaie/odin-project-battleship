@@ -13,8 +13,8 @@ export function Gameboard() {
     }
 
     if (
-      (orientation === "h") & (col + ship.length > 9) ||
-      (orientation === "v") & (row + ship.length > 9)
+      (orientation === "h") & (col + ship.length > 10) ||
+      (orientation === "v") & (row + ship.length > 10)
     ) {
       throw new Error("ship dimentations out of bounds");
     }
