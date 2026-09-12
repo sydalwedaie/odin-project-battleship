@@ -71,15 +71,37 @@ export function Gameboard() {
   };
 
   const printBoard = () => {
+    console.log("OCEAN BOARD");
     console.table(
       board.map((row) =>
         row.map(
           (cell) =>
-            (cell.ship ? cell.ship.length : "") + (cell.isShut ? "x" : ""),
+            (cell.ship ? cell.ship.length : "") + (cell.isShut ? "X" : ""),
         ),
       ),
     );
   };
 
-  return { placeShip, receiveAttack, allShipsAreSunk, printBoard };
+  const printBoardAsTarget = () => {
+    console.log("TARGET BOARD");
+    console.table(
+      board.map((row) =>
+        row.map((cell) => {
+          if (cell.ship) {
+            return cell.isShut ? "X" : "";
+          } else {
+            return cell.isShut ? "O" : "";
+          }
+        }),
+      ),
+    );
+  };
+
+  return {
+    placeShip,
+    receiveAttack,
+    allShipsAreSunk,
+    printBoard,
+    printBoardAsTarget,
+  };
 }
