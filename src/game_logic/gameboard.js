@@ -2,7 +2,7 @@ export function Gameboard() {
   // Create empty grid
   const cell = () => ({ ship: null, isShut: false });
   const row = () => Array(10).fill().map(cell);
-  const board = Array(10).fill().map(row);
+  const grid = Array(10).fill().map(row);
 
   const fleet = [];
 
@@ -22,22 +22,22 @@ export function Gameboard() {
     // 3 branches: each checks for overlaps first
     if (orientation === "h") {
       for (let i = 0; i < ship.length; i++) {
-        if (board[row][col + i].ship) {
+        if (grid[row][col + i].ship) {
           throw new Error("ships overlap");
         }
       }
 
       for (let i = 0; i < ship.length; i++) {
-        board[row][col + i].ship = ship;
+        grid[row][col + i].ship = ship;
       }
     } else if (orientation === "v") {
       for (let i = 0; i < ship.length; i++) {
-        if (board[row + i][col].ship) {
+        if (grid[row + i][col].ship) {
           throw new Error("ships overlap");
         }
       }
       for (let i = 0; i < ship.length; i++) {
-        board[row + i][col].ship = ship;
+        grid[row + i][col].ship = ship;
       }
     } else {
       throw new Error("orientation invalid");
@@ -51,7 +51,7 @@ export function Gameboard() {
       throw new Error("coordinates out of bounds");
     }
 
-    const cell = board[row][col];
+    const cell = grid[row][col];
     if (cell.isShut) {
       throw new Error("coordinates already shut");
     }
@@ -70,38 +70,10 @@ export function Gameboard() {
     return status;
   };
 
-  const printBoard = () => {
-    console.log("OCEAN BOARD");
-    console.table(
-      board.map((row) =>
-        row.map(
-          (cell) =>
-            (cell.ship ? cell.ship.length : "") + (cell.isShut ? "X" : ""),
-        ),
-      ),
-    );
-  };
-
-  const printBoardAsTarget = () => {
-    console.log("TARGET BOARD");
-    console.table(
-      board.map((row) =>
-        row.map((cell) => {
-          if (cell.ship) {
-            return cell.isShut ? "X" : "";
-          } else {
-            return cell.isShut ? "O" : "";
-          }
-        }),
-      ),
-    );
-  };
-
   return {
+    grid,
     placeShip,
     receiveAttack,
     allShipsAreSunk,
-    printBoard,
-    printBoardAsTarget,
   };
 }

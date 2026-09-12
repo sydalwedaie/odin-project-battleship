@@ -3,6 +3,7 @@ import "./assets/reset.css";
 import "./index.css";
 import "./template.html";
 import { Player } from "./game_logic/player.js";
+import { printBoard, printBoardAsTarget } from "./helpers.js";
 
 const player1 = Player("player 1");
 const player2 = Player("player 2");
@@ -28,8 +29,8 @@ player2.placeShips([
 const initNextRound = () => {
   console.clear();
   console.log("CURRENT PLAYER: ", attacker.name);
-  target.gameboard.printBoardAsTarget();
-  attacker.gameboard.printBoard();
+  printBoardAsTarget(target.gameboard.grid);
+  printBoard(attacker.gameboard.grid);
 };
 
 const playRound = (targetCoords) => {
