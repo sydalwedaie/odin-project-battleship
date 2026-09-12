@@ -4,8 +4,12 @@ import "./index.css";
 import "./template.html";
 import { Player } from "./game_logic/player.js";
 
-const player = Player();
-player.initFormation([
+const player1 = Player("player 1");
+const player2 = Player("player 2");
+let attacker = player1;
+let target = player2;
+
+player1.initFormation([
   [4, 7, "v"],
   [5, 2, "h"],
   [8, 1, "h"],
@@ -13,9 +17,31 @@ player.initFormation([
   [1, 1, "h"],
 ]);
 
-player.gameboard.receiveAttack([1, 1]);
-player.gameboard.receiveAttack([3, 2]);
-player.gameboard.receiveAttack([5, 4]);
-player.gameboard.receiveAttack([9, 4]);
+player2.initFormation([
+  [4, 6, "v"],
+  [5, 2, "h"],
+  [8, 0, "h"],
+  [2, 9, "v"],
+  [1, 1, "v"],
+]);
 
-player.gameboard.printBoard();
+const initNextRound = () => {
+  console.clear();
+  console.log("CURRENT PLAYER: ", attacker.name);
+  target.gameboard.printBoardAsTarget();
+  attacker.gameboard.printBoard();
+};
+
+const playRound = (targetCoords) => {
+  try {
+    target.gameboard.receiveAttack(targetCoords);
+    [attacker, target] = [target, attacker];
+  } catch (e) {
+    console.log(e);
+  } finally {
+    initNextRound();
+  }
+};
+
+initNextRound();
+window.playRound = playRound;
