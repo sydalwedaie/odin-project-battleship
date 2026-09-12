@@ -9,7 +9,7 @@ const player2 = Player("player 2");
 let attacker = player1;
 let target = player2;
 
-player1.initFormation([
+player1.placeShips([
   [4, 7, "v"],
   [5, 2, "h"],
   [8, 1, "h"],
@@ -17,7 +17,7 @@ player1.initFormation([
   [1, 1, "h"],
 ]);
 
-player2.initFormation([
+player2.placeShips([
   [4, 6, "v"],
   [5, 2, "h"],
   [8, 0, "h"],

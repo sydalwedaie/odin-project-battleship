@@ -4,7 +4,7 @@ import { Ship } from "./ship.js";
 export function Player(name) {
   const gameboard = Gameboard();
 
-  const initFormation = (positions) => {
+  const placeShips = (positions) => {
     if (positions.length !== 5) {
       throw new Error("number of positions is not exactly 5");
     }
@@ -15,5 +15,5 @@ export function Player(name) {
     });
   };
 
-  return { name, gameboard, initFormation };
+  return { name, gameboard, placeShips };
 }
