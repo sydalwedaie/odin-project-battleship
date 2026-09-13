@@ -2,16 +2,13 @@ export const printBoard = (gameboard) => {
   console.log("OWN BOARD");
   console.table(
     gameboard.map((row) =>
-      row.map(
-        (cell) => {
-          if (cell.ship) {
-            return cell.ship.length + (cell.isShut ? "X" : "");
-          } else {
-            return cell.isShut ? "O" : "";
-          }
-        },
-        // (cell.ship ? cell.ship.length : "") + (cell.isShut ? "X" : ""),
-      ),
+      row.map((cell) => {
+        if (cell.ship) {
+          return cell.ship.name[0] + (cell.isShut ? "X" : "");
+        } else {
+          return cell.isShut ? "O" : "";
+        }
+      }),
     ),
   );
 };

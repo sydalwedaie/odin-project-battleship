@@ -8,10 +8,18 @@ export function Player(name) {
     if (positions.length !== 5) {
       throw new Error("number of positions is not exactly 5");
     }
-    const shipLengths = [5, 4, 3, 3, 2];
+
+    const ships = [
+      [5, "Carrier"],
+      [4, "Battleship"],
+      [3, "Destroyer"],
+      [3, "Submarine"],
+      [2, "Patrol Boat"],
+    ];
+
     positions.forEach((pos, index) => {
-      const len = shipLengths[index];
-      gameboard.placeShip(Ship(len), pos);
+      const [length, name] = ships[index];
+      gameboard.placeShip(Ship(length, name), pos);
     });
   };
 
