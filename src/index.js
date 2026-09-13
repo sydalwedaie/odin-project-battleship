@@ -2,51 +2,35 @@ import "./assets/modern-normalize.css";
 import "./assets/reset.css";
 import "./index.css";
 import "./template.html";
-import { Player } from "./game_logic/player.js";
-import { printBoard, printBoardAsTarget } from "./helpers.js";
+import { ConsoleController } from "./game_logic/console_controller.js";
 
-const player1 = Player("player 1");
-const player2 = Player("player 2");
-let currPlayer = player1;
-let currEnemy = player2;
+const consoleController = ConsoleController();
 
-player1.placeShips([
-  [4, 7, "v"],
-  [5, 2, "h"],
-  [8, 1, "h"],
-  [1, 8, "v"],
-  [1, 1, "h"],
-]);
+function testWin() {
+  const targets = [
+    [1, 1],
+    [8, 1],
+    [1, 2],
+    [5, 2],
+    [8, 2],
+    [5, 3],
+    [8, 3],
+    [5, 4],
+    [5, 5],
+    [4, 7],
+    [5, 7],
+    [6, 7],
+    [7, 7],
+    [8, 7],
+    [1, 8],
+    [2, 8],
+    [3, 8],
+  ];
 
-player2.placeShips([
-  [4, 6, "v"],
-  [5, 2, "h"],
-  [8, 0, "h"],
-  [2, 9, "v"],
-  [1, 1, "v"],
-]);
+  targets.forEach((target) => {
+    consoleController.play(target);
+    consoleController.play(target);
+  });
+}
 
-const initNextRound = () => {
-  console.clear();
-  console.log("CURRENT PLAYER: ", currPlayer.name);
-  printBoardAsTarget(currEnemy.gameboard.grid);
-  printBoard(currPlayer.gameboard.grid);
-};
-
-const playRound = (targetCoords) => {
-  if (currEnemy.gameboard.allShipsAreSunk()) return;
-  try {
-    currEnemy.gameboard.receiveAttack(targetCoords);
-    if (currEnemy.gameboard.allShipsAreSunk()) {
-      console.log(`GAMEOVER! ${currPlayer.name} wins.`);
-      return;
-    }
-    [currPlayer, currEnemy] = [currEnemy, currPlayer];
-  } catch (e) {
-    console.log(e);
-  }
-  initNextRound();
-};
-
-initNextRound();
-window.playRound = playRound;
+testWin();

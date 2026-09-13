@@ -27,3 +27,16 @@ export const printBoardAsTarget = (gameboard) => {
     ),
   );
 };
+
+export const displayRound = (gameState) => {
+  console.clear();
+  if (gameState.gameover) {
+    console.log(`GAMEOVER! ${gameState.currPlayer.name} wins.`);
+    return;
+  }
+
+  if (gameState.message) console.log(gameState.message);
+  console.log("CURRENT PLAYER: ", gameState.currPlayer.name);
+  printBoardAsTarget(gameState.currEnemy.gameboard.grid);
+  printBoard(gameState.currPlayer.gameboard.grid);
+};
