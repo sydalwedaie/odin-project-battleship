@@ -3,8 +3,14 @@ export const printBoard = (gameboard) => {
   console.table(
     gameboard.map((row) =>
       row.map(
-        (cell) =>
-          (cell.ship ? cell.ship.length : "") + (cell.isShut ? "X" : ""),
+        (cell) => {
+          if (cell.ship) {
+            return cell.ship.length + (cell.isShut ? "X" : "");
+          } else {
+            return cell.isShut ? "O" : "";
+          }
+        },
+        // (cell.ship ? cell.ship.length : "") + (cell.isShut ? "X" : ""),
       ),
     ),
   );
