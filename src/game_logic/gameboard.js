@@ -60,14 +60,7 @@ export function Gameboard() {
   };
 
   const allShipsAreSunk = () => {
-    let status = true;
-    for (let ship of fleet) {
-      if (!ship.isSunk()) {
-        status = false;
-        break;
-      }
-    }
-    return status;
+    return fleet.every((ship) => ship.isSunk());
   };
 
   return {
