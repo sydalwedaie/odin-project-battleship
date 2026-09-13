@@ -7,8 +7,8 @@ import { printBoard, printBoardAsTarget } from "./helpers.js";
 
 const player1 = Player("player 1");
 const player2 = Player("player 2");
-let attacker = player1;
-let target = player2;
+let currPlayer = player1;
+let currEnemy = player2;
 
 player1.placeShips([
   [4, 7, "v"],
@@ -28,20 +28,24 @@ player2.placeShips([
 
 const initNextRound = () => {
   console.clear();
-  console.log("CURRENT PLAYER: ", attacker.name);
-  printBoardAsTarget(target.gameboard.grid);
-  printBoard(attacker.gameboard.grid);
+  console.log("CURRENT PLAYER: ", currPlayer.name);
+  printBoardAsTarget(currEnemy.gameboard.grid);
+  printBoard(currPlayer.gameboard.grid);
 };
 
 const playRound = (targetCoords) => {
+  if (currEnemy.gameboard.allShipsAreSunk()) return;
   try {
-    target.gameboard.receiveAttack(targetCoords);
-    [attacker, target] = [target, attacker];
+    currEnemy.gameboard.receiveAttack(targetCoords);
+    if (currEnemy.gameboard.allShipsAreSunk()) {
+      console.log(`GAMEOVER! ${currPlayer.name} wins.`);
+      return;
+    }
+    [currPlayer, currEnemy] = [currEnemy, currPlayer];
   } catch (e) {
     console.log(e);
-  } finally {
-    initNextRound();
   }
+  initNextRound();
 };
 
 initNextRound();
