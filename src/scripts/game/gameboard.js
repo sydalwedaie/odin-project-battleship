@@ -65,6 +65,7 @@ export function Gameboard() {
 
   return {
     grid,
+    fleet,
     placeShip,
     receiveAttack,
     allShipsAreSunk,

@@ -28,6 +28,14 @@ const printBoardAsTarget = (gameboard) => {
   );
 };
 
+const printFleetStatus = (fleet) => {
+  console.table(
+    fleet.map((ship) => {
+      return [ship.name, `${ship.getHealth()} remaining health`];
+    }),
+  );
+};
+
 export const displayRound = ({ currPlayer, currEnemy, gameover, message }) => {
   console.clear();
   if (message) console.log(message);
@@ -35,4 +43,6 @@ export const displayRound = ({ currPlayer, currEnemy, gameover, message }) => {
   console.log("CURRENT PLAYER: ", currPlayer.name);
   printBoardAsTarget(currEnemy.gameboard.grid);
   printBoard(currPlayer.gameboard.grid);
+  console.log("Enemy fleet status", `(${currEnemy.name})`);
+  printFleetStatus(currEnemy.gameboard.fleet);
 };
