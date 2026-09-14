@@ -1,4 +1,4 @@
-export const printBoard = (gameboard) => {
+const printBoard = (gameboard) => {
   console.log("OWN BOARD");
   console.table(
     gameboard.map((row) =>
@@ -13,7 +13,7 @@ export const printBoard = (gameboard) => {
   );
 };
 
-export const printBoardAsTarget = (gameboard) => {
+const printBoardAsTarget = (gameboard) => {
   console.log("TARGET BOARD");
   console.table(
     gameboard.map((row) =>

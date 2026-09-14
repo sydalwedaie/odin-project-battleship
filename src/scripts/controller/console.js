@@ -1,5 +1,5 @@
-import { Game } from "./game.js";
-import { displayRound } from "../helpers.js";
+import { Game } from "../game/game.js";
+import { displayRound } from "../display/console.js";
 
 export function ConsoleController() {
   const game = Game("Player 1", "Player 2");
