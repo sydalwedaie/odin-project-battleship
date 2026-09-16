@@ -1,4 +1,5 @@
 export function Ship(length, name) {
+  if (length < 2 || length > 5) throw new Error("invalid ship length");
   let hitCount = 0;
 
   const hit = () => (hitCount += 1);
