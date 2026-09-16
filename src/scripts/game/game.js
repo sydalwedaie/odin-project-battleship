@@ -11,15 +11,11 @@ export function Game(player1Name, player2Name) {
     message: "Welcome to Battleship!",
   };
 
-  const placeShipsPlayer1 = (positions) => {
-    player1.placeShips(positions);
-  };
-
-  const placeShipsPlayer2 = (positions) => {
-    player2.placeShips(positions);
-  };
-
   const playRound = (targetCoords) => {
+    if (!player1.gameboard.fleet.length || !player2.gameboard.fleet.length) {
+      throw new Error("attempt to play before placing ships");
+    }
+
     state.message = "";
     if (state.gameover) {
       state.message = "The game has ended!";
@@ -39,5 +35,5 @@ export function Game(player1Name, player2Name) {
     }
   };
 
-  return { placeShipsPlayer1, placeShipsPlayer2, playRound, state };
+  return { player1, player2, state, playRound };
 }

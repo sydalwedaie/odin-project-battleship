@@ -3,7 +3,7 @@ import { displayRound } from "../display/console.js";
 
 export function ConsoleController() {
   const game = Game("Player 1", "Player 2");
-  game.placeShipsPlayer1([
+  game.player1.placeShips([
     [4, 7, "v"],
     [5, 2, "h"],
     [8, 1, "h"],
@@ -11,7 +11,7 @@ export function ConsoleController() {
     [1, 1, "h"],
   ]);
 
-  game.placeShipsPlayer2([
+  game.player2.placeShips([
     [4, 6, "v"],
     [5, 2, "h"],
     [8, 0, "h"],
@@ -26,5 +26,5 @@ export function ConsoleController() {
     displayRound(game.state);
   };
 
-  return { play };
+  return { game, play };
 }
