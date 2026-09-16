@@ -8,8 +8,12 @@ export function Gameboard() {
 
   const placeShip = (ship, [row, col, orientation]) => {
     // Check for invalid inputs
-    if (row > 9 || col > 9) {
+    if (row > 9 || row < 0 || col > 9 || col < 0) {
       throw new Error("coordinates out of bounds");
+    }
+
+    if (orientation !== "h" && orientation !== "v") {
+      throw new Error("orientation invalid");
     }
 
     if (
@@ -19,35 +23,27 @@ export function Gameboard() {
       throw new Error("ship dimentations out of bounds");
     }
 
-    // 3 branches: each checks for overlaps first
-    if (orientation === "h") {
-      for (let i = 0; i < ship.length; i++) {
-        if (grid[row][col + i].ship) {
-          throw new Error("ships overlap");
-        }
-      }
+    // Check for overlaps
+    for (let i = 0; i < ship.length; i++) {
+      let cell;
+      if (orientation === "h") cell = grid[row][col + i];
+      if (orientation === "v") cell = grid[row + i][col];
+      if (cell.ship) throw new Error("ships overlap");
+    }
 
-      for (let i = 0; i < ship.length; i++) {
-        grid[row][col + i].ship = ship;
-      }
-    } else if (orientation === "v") {
-      for (let i = 0; i < ship.length; i++) {
-        if (grid[row + i][col].ship) {
-          throw new Error("ships overlap");
-        }
-      }
-      for (let i = 0; i < ship.length; i++) {
-        grid[row + i][col].ship = ship;
-      }
-    } else {
-      throw new Error("orientation invalid");
+    // Place ships
+    for (let i = 0; i < ship.length; i++) {
+      let cell;
+      if (orientation === "h") cell = grid[row][col + i];
+      if (orientation === "v") cell = grid[row + i][col];
+      cell.ship = ship;
     }
 
     fleet.push(ship);
   };
 
   const receiveAttack = ([row, col]) => {
-    if (row > 9 || col > 9) {
+    if (row > 9 || col > 9 || row < 0 || col < 0) {
       throw new Error("coordinates out of bounds");
     }
 
