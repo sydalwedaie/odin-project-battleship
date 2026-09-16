@@ -1,7 +1,7 @@
-const printBoard = (gameboard) => {
+export const printBoard = (grid) => {
   console.log("OWN BOARD");
   console.table(
-    gameboard.map((row) =>
+    grid.map((row) =>
       row.map((cell) => {
         if (cell.ship) {
           return cell.ship.name[0] + (cell.isShut ? "X" : "");
@@ -13,10 +13,10 @@ const printBoard = (gameboard) => {
   );
 };
 
-const printBoardAsTarget = (gameboard) => {
+export const printBoardAsTarget = (grid) => {
   console.log("TARGET BOARD");
   console.table(
-    gameboard.map((row) =>
+    grid.map((row) =>
       row.map((cell) => {
         if (cell.ship) {
           return cell.isShut ? "X" : "";
