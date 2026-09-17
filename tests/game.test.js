@@ -95,4 +95,8 @@ describe("Test winning game, two players", () => {
     expect(game.state.gameover).toBe(true);
     expect(game.state.currPlayer).toBe(game.player2);
   });
+
+  test('should throw error if attempts to play after gameover', () => {
+    expect(() => game.playRound([7, 3])).toThrow()
+  });
 });
