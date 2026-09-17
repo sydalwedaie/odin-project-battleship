@@ -1,31 +1,27 @@
+import { gridMap } from "../helpers.js";
+
 export const printBoard = (grid) => {
+  const cell = (cell) => {
+    if (cell.ship) {
+      return cell.ship.name[0] + (cell.isShut ? "X" : "");
+    } else {
+      return cell.isShut ? "O" : "";
+    }
+  };
   console.log("OWN BOARD");
-  console.table(
-    grid.map((row) =>
-      row.map((cell) => {
-        if (cell.ship) {
-          return cell.ship.name[0] + (cell.isShut ? "X" : "");
-        } else {
-          return cell.isShut ? "O" : "";
-        }
-      }),
-    ),
-  );
+  console.table(gridMap(grid, cell));
 };
 
 export const printBoardAsTarget = (grid) => {
+  const cell = (cell) => {
+    if (cell.ship) {
+      return cell.isShut ? "X" : "";
+    } else {
+      return cell.isShut ? "O" : "";
+    }
+  };
   console.log("TARGET BOARD");
-  console.table(
-    grid.map((row) =>
-      row.map((cell) => {
-        if (cell.ship) {
-          return cell.isShut ? "X" : "";
-        } else {
-          return cell.isShut ? "O" : "";
-        }
-      }),
-    ),
-  );
+  console.table(gridMap(grid, cell));
 };
 
 const printFleetStatus = (fleet) => {

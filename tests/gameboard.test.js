@@ -1,14 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
 import { Gameboard } from "../src/scripts/game/gameboard.js";
 import { Ship } from "../src/scripts/game/ship.js";
-
-function gridForEach(cb) {
-  [...Array(10).keys()].forEach((row) => {
-    [...Array(10).keys()].forEach((col) => {
-      cb(row, col);
-    });
-  });
-}
+import { gridForEach } from "../src/scripts/helpers.js";
 
 describe("Test factory: Gameboard grid", () => {
   const gameboard = Gameboard();
@@ -26,8 +19,8 @@ describe("Test factory: Gameboard grid", () => {
   );
 
   test("should return valid empty cell for each cell", () => {
-    gridForEach((row, col) => {
-      expect(grid[row][col]).toEqual({ ship: null, isShut: false });
+    gridForEach(grid, (cell) => {
+      expect(cell).toEqual({ ship: null, isShut: false });
     });
   });
 });
@@ -136,9 +129,8 @@ describe("Test factory: Gameboard attack logic", () => {
   });
 
   test("should return true if ALL ships are sunk", () => {
-    gridForEach((row, col) => {
-      if (grid[row][col].isShut) return;
-      gameboard.receiveAttack([row, col]);
+    gridForEach(grid, (cell, row, col) => {
+      if (!cell.isShut) gameboard.receiveAttack([row, col]);
     });
 
     expect(gameboard.allShipsAreSunk()).toBe(true);
