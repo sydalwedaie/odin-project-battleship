@@ -8,7 +8,7 @@ export function Game(player1Name, player2Name) {
     currPlayer: player1,
     currEnemy: player2,
     gameover: false,
-    message: "Welcome to Battleship!",
+    comms: "Welcome to Battleship!",
   };
 
   const playRound = (targetCoords) => {
@@ -16,22 +16,22 @@ export function Game(player1Name, player2Name) {
       throw new Error("attempt to play before placing ships");
     }
 
-    state.message = "";
+    state.comms = "";
     if (state.gameover) {
-      state.message = "The game has ended!";
-      return;
+      throw new Error("attempt to play after gameover");
     }
+
     try {
       const enemyBoard = state.currEnemy.gameboard;
       enemyBoard.receiveAttack(targetCoords);
       if (enemyBoard.allShipsAreSunk()) {
         state.gameover = true;
-        state.message = `GAMEOVER! ${state.currPlayer.name} wins.`;
+        state.comms = `GAMEOVER! ${state.currPlayer.name} wins.`;
         return;
       }
       [state.currPlayer, state.currEnemy] = [state.currEnemy, state.currPlayer];
     } catch (e) {
-      state.message = "Ops... This position has already been shot!";
+      state.comms = "Ops... This position has already been shot!";
     }
   };
 
