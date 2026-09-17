@@ -20,7 +20,7 @@ export function Gameboard() {
       (orientation === "h") & (col + ship.length > 10) ||
       (orientation === "v") & (row + ship.length > 10)
     ) {
-      throw new Error("ship dimentations out of bounds");
+      throw new Error("ship dimentions out of bounds");
     }
 
     // Check for overlaps
@@ -43,16 +43,14 @@ export function Gameboard() {
   };
 
   const receiveAttack = ([row, col]) => {
-    if (row > 9 || col > 9 || row < 0 || col < 0) {
-      throw new Error("coordinates out of bounds");
-    }
-
+    const invalidCoords = row > 9 || col > 9 || row < 0 || col < 0;
     const cell = grid[row][col];
-    if (cell.isShut) {
-      throw new Error("coordinates already shut");
-    }
-    cell.isShut = true;
+
+    if (invalidCoords) throw new Error("coordinates out of bounds");
+    if (cell.isShut) throw new Error("coordinates already shut");
     if (cell.ship) cell.ship.hit();
+
+    cell.isShut = true;
   };
 
   const allShipsAreSunk = () => {
