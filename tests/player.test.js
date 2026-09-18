@@ -1,17 +1,19 @@
 import { describe, expect, test } from "@jest/globals";
 import { Player } from "../src/scripts/game/player.js";
+import { getRandomFormation } from "../src/scripts/helpers.js";
 
 describe("Test factory: Player", () => {
-  const player = Player("name");
-
   test("should return name of player", () => {
+    const player = Player("name");
     expect(player.name).toBe("name");
   });
 
   test("should throw error if number of positions is not exactly 5", () => {
+    const player = Player("name");
     expect(() => {
       player.placeShips([[1, 1, "h"], [(2, 2, "h")]]);
     }).toThrow();
+
     expect(() => {
       player.placeShips([
         [1, 1, "h"],
@@ -25,6 +27,7 @@ describe("Test factory: Player", () => {
   });
 
   test("should place ships given 5 positions", () => {
+    const player = Player("name");
     player.placeShips([
       [4, 7, "v"],
       [5, 2, "h"],
@@ -37,7 +40,8 @@ describe("Test factory: Player", () => {
   });
 
   test("should place 5 ships randomly", () => {
-    player.placeShipsRandom();
+    const player = Player("name");
+    player.placeShips(getRandomFormation());
     expect(player.gameboard.fleet.length).toBe(5);
   });
 });

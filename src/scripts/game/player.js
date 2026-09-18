@@ -22,25 +22,5 @@ export function Player(name) {
     });
   };
 
-  const placeShipsRandom = () => {
-    ships.forEach(([length, name], index) => {
-      while (gameboard.fleet.length === index) {
-        const row = Math.floor(Math.random() * 10);
-        const col = Math.floor(Math.random() * 10);
-        const orientation = ["h", "v"][Math.floor(Math.random() * 2)];
-        if (
-          (orientation === "h") & (col + length < 10) ||
-          (orientation === "v") & (row + length < 10)
-        ) {
-          try {
-            gameboard.placeShip(Ship(length, name), [row, col, orientation]);
-          } catch (e) {
-            console.log(e);
-          }
-        }
-      }
-    });
-  };
-
-  return { name, gameboard, placeShips, placeShipsRandom };
+  return { name, gameboard, placeShips };
 }
