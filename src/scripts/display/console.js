@@ -32,10 +32,9 @@ const printFleetStatus = (fleet) => {
   );
 };
 
-export const displayRound = ({ currPlayer, currEnemy, gameover, comms }) => {
-  console.clear();
-  if (comms) console.log(comms);
+export const displayRound = ({ currPlayer, currEnemy, gameover }) => {
   if (gameover) return;
+  console.clear();
   console.log("CURRENT PLAYER: ", currPlayer.name);
   printBoardAsTarget(currEnemy.gameboard.grid);
   printBoard(currPlayer.gameboard.grid);

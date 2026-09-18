@@ -49,12 +49,8 @@ describe("Test factory: Game init", () => {
     expect(game.state.currEnemy).toEqual(game.player2);
   });
 
-  test("should not switch players if a target is already shut", () => {
-    expect(game.state.currPlayer).toEqual(game.player1);
-    expect(game.state.currEnemy).toEqual(game.player2);
-    game.playRound([1, 1]);
-    expect(game.state.currPlayer).toEqual(game.player1);
-    expect(game.state.currEnemy).toEqual(game.player2);
+  test("should throw error if a target is already shut", () => {
+    expect(() => game.playRound([1, 1])).toThrow();
   });
 });
 
@@ -96,7 +92,7 @@ describe("Test winning game, two players", () => {
     expect(game.state.currPlayer).toBe(game.player2);
   });
 
-  test('should throw error if attempts to play after gameover', () => {
-    expect(() => game.playRound([7, 3])).toThrow()
+  test("should throw error if attempts to play after gameover", () => {
+    expect(() => game.playRound([7, 3])).toThrow();
   });
 });
