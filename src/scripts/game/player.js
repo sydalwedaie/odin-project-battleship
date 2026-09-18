@@ -11,12 +11,12 @@ export function Player(name) {
     [2, "Patrol Boat"],
   ];
 
-  const placeShips = (positions) => {
-    if (positions.length !== 5) {
+  const placeShips = (formation) => {
+    if (formation.length !== 5) {
       throw new Error("number of positions is not exactly 5");
     }
 
-    positions.forEach((pos, index) => {
+    formation.forEach((pos, index) => {
       const [length, name] = ships[index];
       gameboard.placeShip(Ship(length, name), pos);
     });
