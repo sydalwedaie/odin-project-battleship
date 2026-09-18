@@ -24,7 +24,7 @@ describe("Test factory: Player", () => {
     }).toThrow();
   });
 
-  test("should place 5 ships", () => {
+  test("should place ships given 5 positions", () => {
     player.placeShips([
       [4, 7, "v"],
       [5, 2, "h"],
@@ -33,6 +33,11 @@ describe("Test factory: Player", () => {
       [1, 1, "h"],
     ]);
 
+    expect(player.gameboard.fleet.length).toBe(5);
+  });
+
+  test("should place 5 ships randomly", () => {
+    player.placeShipsRandom();
     expect(player.gameboard.fleet.length).toBe(5);
   });
 });
