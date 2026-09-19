@@ -16,6 +16,12 @@ export const gridLoop = (callback) => {
   });
 };
 
+export const getRandomTarget = () => {
+  const row = Math.floor(Math.random() * 10);
+  const col = Math.floor(Math.random() * 10);
+  return [row, col];
+};
+
 export const getRandomFormation = () => {
   const row = () => Array(10).fill(null);
   const grid = Array(10).fill().map(row);

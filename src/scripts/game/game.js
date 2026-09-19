@@ -1,4 +1,5 @@
 import { Player } from "./player.js";
+import { getRandomTarget } from "../helpers.js";
 
 export function Game(player1Name, player2Name) {
   const player1 = Player(player1Name);
@@ -28,5 +29,13 @@ export function Game(player1Name, player2Name) {
     }
   };
 
-  return { player1, player2, state, playRound };
+  const playRoundRandom = () => {
+    let [row, col] = getRandomTarget();
+    while (state.currEnemy.gameboard.grid[row][col].isShut) {
+      [row, col] = getRandomTarget();
+    }
+    playRound([row, col]);
+  };
+
+  return { player1, player2, state, playRound, playRoundRandom };
 }

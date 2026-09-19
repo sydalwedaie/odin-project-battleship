@@ -96,3 +96,22 @@ describe("Test winning game, two players", () => {
     expect(() => game.playRound([7, 3])).toThrow();
   });
 });
+
+describe("Test two robot players", () => {
+  const game = Game("player 1", "player 2");
+  game.player1.placeShipsRandom();
+  game.player2.placeShipsRandom();
+
+  test("should return false before gameover", () => {
+    expect(game.state.gameover).toBe(false);
+  });
+
+  test("should return true after a gameover", () => {
+    while (!game.state.gameover) {
+      game.playRoundRandom();
+      if (!game.state.gameover) game.playRoundRandom();
+    }
+
+    expect(game.state.gameover).toBe(true);
+  });
+});
