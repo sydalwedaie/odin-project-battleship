@@ -1,6 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
 import { Player } from "../src/scripts/game/player.js";
-import { getRandomFormation } from "../src/scripts/helpers.js";
 
 describe("Test factory: Player", () => {
   test("should return name of player", () => {
@@ -41,7 +40,7 @@ describe("Test factory: Player", () => {
 
   test("should place 5 ships randomly", () => {
     const player = Player("name");
-    player.placeShips(getRandomFormation());
+    player.placeShipsRandom();
     expect(player.gameboard.fleet.length).toBe(5);
   });
 });
