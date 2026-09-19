@@ -1,8 +1,9 @@
 import { Game } from "../game/game.js";
-import { displayRound } from "../display/console.js";
+import { ViewConsole } from "../view/console.js";
 
-export function ConsoleController() {
+export function ControllerConsole() {
   const game = Game("Player 1", "Player 2");
+  const view = ViewConsole(game.state);
   // game.player1.placeShips([
   //   [4, 7, "v"],
   //   [5, 2, "h"],
@@ -22,12 +23,12 @@ export function ConsoleController() {
   game.player1.placeShipsRandom();
   game.player2.placeShipsRandom();
 
-  displayRound(game.state);
+  view.printRound();
 
   const play = (coords) => {
     game.playRound(coords);
     game.playRoundRandom();
-    displayRound(game.state);
+    view.printRound();
   };
 
   return { game, play };
