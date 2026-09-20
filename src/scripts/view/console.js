@@ -34,7 +34,6 @@ export function ViewConsole({ currPlayer, currEnemy, gameover }, comms) {
   };
 
   const printRound = () => {
-    if (gameover) return;
     console.clear();
     console.log(comms.getHistory());
     console.log("CURRENT PLAYER: ", currPlayer.name);
