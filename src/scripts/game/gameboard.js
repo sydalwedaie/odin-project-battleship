@@ -1,3 +1,11 @@
+import {
+  validateCoords,
+  validateOrientation,
+  validateBounds,
+  validateOverlap,
+  placeItem,
+} from "../helpers.js";
+
 export function Gameboard() {
   // Create empty grid
   const cell = () => ({ ship: null, isShut: false });
@@ -7,46 +15,34 @@ export function Gameboard() {
   const fleet = [];
 
   const placeShip = (ship, [row, col, orientation]) => {
-    // Check for invalid inputs
-    if (row > 9 || row < 0 || col > 9 || col < 0) {
+    // Check for valid inputs
+    if (!validateCoords(row, col)) {
       throw new Error("coordinates out of bounds");
     }
 
-    if (orientation !== "h" && orientation !== "v") {
+    if (!validateOrientation(orientation)) {
       throw new Error("orientation invalid");
     }
 
-    if (
-      (orientation === "h") & (col + ship.length > 10) ||
-      (orientation === "v") & (row + ship.length > 10)
-    ) {
+    if (!validateBounds(ship.length, [row, col, orientation])) {
       throw new Error("ship dimentions out of bounds");
     }
 
-    // Check for overlaps
-    for (let i = 0; i < ship.length; i++) {
-      let cell;
-      if (orientation === "h") cell = grid[row][col + i];
-      if (orientation === "v") cell = grid[row + i][col];
-      if (cell.ship) throw new Error("ships overlap");
+    if (!validateOverlap(grid, ship.length, [row, col, orientation])) {
+      throw new Error("ships overlap");
     }
 
     // Place ships
-    for (let i = 0; i < ship.length; i++) {
-      let cell;
-      if (orientation === "h") cell = grid[row][col + i];
-      if (orientation === "v") cell = grid[row + i][col];
-      cell.ship = ship;
-    }
+    placeItem(grid, ship, ship.length, [row, col, orientation]);
 
     fleet.push(ship);
   };
 
   const receiveAttack = ([row, col]) => {
-    const invalidCoords = row > 9 || col > 9 || row < 0 || col < 0;
+    if (!validateCoords(row, col)) throw new Error("coordinates out of bounds");
+
     const cell = grid[row][col];
 
-    if (invalidCoords) throw new Error("coordinates out of bounds");
     if (cell.isShut) throw new Error("coordinates already shut");
     if (cell.ship) cell.ship.hit();
 
