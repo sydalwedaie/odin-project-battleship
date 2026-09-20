@@ -3,7 +3,7 @@ import { ViewConsole } from "../view/console.js";
 
 export function ControllerConsole() {
   const game = Game("Player 1", "Player 2");
-  const view = ViewConsole(game.state);
+  const view = ViewConsole(game.state, game.comms);
   // game.player1.placeShips([
   //   [4, 7, "v"],
   //   [5, 2, "h"],

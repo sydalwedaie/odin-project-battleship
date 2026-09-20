@@ -1,6 +1,6 @@
 import { gridMap } from "../helpers.js";
 
-export function ViewConsole({ currPlayer, currEnemy, gameover }) {
+export function ViewConsole({ currPlayer, currEnemy, gameover }, comms) {
   const printBoard = (grid) => {
     const peg = (cell) => {
       if (cell.ship) {
@@ -36,6 +36,7 @@ export function ViewConsole({ currPlayer, currEnemy, gameover }) {
   const printRound = () => {
     if (gameover) return;
     console.clear();
+    console.log(comms.getHistory());
     console.log("CURRENT PLAYER: ", currPlayer.name);
     printBoardAsTarget(currEnemy.gameboard.grid);
     printBoard(currPlayer.gameboard.grid);

@@ -1,9 +1,11 @@
 import { Player } from "./player.js";
 import { getRandomTarget } from "../helpers.js";
+import { Comms } from "./comms.js";
 
 export function Game(player1Name, player2Name) {
   const player1 = Player(player1Name);
   const player2 = Player(player2Name);
+  const comms = Comms();
 
   const state = {
     currPlayer: player1,
@@ -22,6 +24,7 @@ export function Game(player1Name, player2Name) {
 
     const enemyBoard = state.currEnemy.gameboard;
     enemyBoard.receiveAttack(targetCoords);
+    comms.addRoundMessage(state.currPlayer, enemyBoard.grid, targetCoords);
     if (enemyBoard.allShipsAreSunk()) {
       state.gameover = true;
     } else {
@@ -37,5 +40,5 @@ export function Game(player1Name, player2Name) {
     playRound([row, col]);
   };
 
-  return { player1, player2, state, playRound, playRoundRandom };
+  return { player1, player2, comms, state, playRound, playRoundRandom };
 }
