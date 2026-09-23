@@ -1,28 +1,15 @@
 import { gridMap } from "../helpers.js";
+import { getPegPlayer, getPegEnemy } from "../helpers.js";
 
 export function ViewConsole({ currPlayer, currEnemy, gameover }, comms) {
   const printBoard = (grid) => {
-    const peg = (cell) => {
-      if (cell.ship) {
-        return cell.ship.name[0] + (cell.isShut ? "X" : "");
-      } else {
-        return cell.isShut ? "O" : "";
-      }
-    };
     console.log("OWN BOARD");
-    console.table(gridMap(grid, peg));
+    console.table(gridMap(grid, getPegPlayer));
   };
 
   const printBoardAsTarget = (grid) => {
-    const peg = (cell) => {
-      if (cell.ship) {
-        return cell.isShut ? "X" : "";
-      } else {
-        return cell.isShut ? "O" : "";
-      }
-    };
     console.log("TARGET BOARD");
-    console.table(gridMap(grid, peg));
+    console.table(gridMap(grid, getPegEnemy));
   };
 
   const printFleetStatus = (fleet) => {

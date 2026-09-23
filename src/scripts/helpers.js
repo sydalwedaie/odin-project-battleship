@@ -89,3 +89,33 @@ export const placeItem = (grid, item, length, [row, col, orientation]) => {
     cell.ship = item;
   }
 };
+
+// DOM helpers
+
+export function generateDOM(htmlString) {
+  return document.createRange().createContextualFragment(htmlString);
+}
+
+export const html = String.raw;
+
+export const $ = (selector, root = document) => {
+  return root.querySelector(selector);
+};
+
+// Misc
+
+export function getPegPlayer(cell) {
+  if (cell.ship) {
+    return cell.ship.name[0] + (cell.isShut ? "X" : "");
+  } else {
+    return cell.isShut ? "O" : "";
+  }
+}
+
+export function getPegEnemy(cell) {
+  if (cell.ship) {
+    return cell.isShut ? "X" : "";
+  } else {
+    return cell.isShut ? "O" : "";
+  }
+}
