@@ -8,17 +8,22 @@ import {
 } from "../helpers.js";
 
 function Grid(root) {
-  const gridMarkup = generateGridMarkup();
-  const render = () => root.appendChild(generateDOM(gridMarkup));
-  return { render };
+  const DOM = generateDOMgrid();
+  const render = () => root.appendChild(DOM);
+  const loadData = (dataGrid, cb) => {
+    gridForEach(dataGrid, (cell, row, col) => {
+      const cellEl = $(`.grid-row-${row}.grid-col-${col}`, root);
+      cb(cellEl, cell);
+    });
+  };
+  return { render, loadData };
 }
 
 export function GridPlayer(root) {
   const grid = Grid(root);
 
-  const loadData = (player) => {
-    gridForEach(player.gameboard.grid, (cell, row, col) => {
-      const cellEl = $(`.grid-row-${row}.grid-col-${col}`, root);
+  const loadData = (dataGrid) => {
+    grid.loadData(dataGrid, (cellEl, cell) => {
       cellEl.textContent = getPegPlayer(cell);
     });
   };
@@ -29,27 +34,26 @@ export function GridPlayer(root) {
 export function GridEnemy(root) {
   const grid = Grid(root);
 
-  const loadData = (enemy) => {
-    gridForEach(enemy.gameboard.grid, (cell, row, col) => {
-      const cellEl = $(`.grid-row-${row}.grid-col-${col}`, root);
+  const loadData = (dataGrid) => {
+    grid.loadData(dataGrid, (cellEl, cell) => {
       cellEl.textContent = getPegEnemy(cell);
     });
   };
 
-  const bindCellClick = (handleClick) => {
-    $(".grid", root).addEventListener("click", (e) => {
+  const bindClickCell = (handleClick) => {
+    root.addEventListener("click", (e) => {
       if (e.target.closest(".grid-cell")) {
         const target = [e.target.dataset.row, e.target.dataset.col];
-        console.log(target);
         handleClick(target);
       }
     });
   };
 
-  return Object.assign({}, grid, { loadData, bindCellClick });
+  return Object.assign({}, grid, { loadData, bindClickCell });
 }
+
 // Helpers
-function generateGridMarkup() {
+function generateDOMgrid() {
   const cell = (rowN, colN) => {
     const classList = `grid-cell grid-row-${rowN} grid-col-${colN}`;
     return html`<div
@@ -71,5 +75,5 @@ function generateGridMarkup() {
     .map((_, rowN) => row(rowN))
     .join("");
 
-  return html`<section class="grid">${grid}</section>`;
+  return generateDOM(`<div class="grid">${grid}</section>`);
 }
