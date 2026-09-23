@@ -1,3 +1,22 @@
 p {
   font-size: 2rem;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 32px);
+  grid-template-rows: repeat(10, 32px);
+  gap: 2px;
+}
+
+.grid-cell {
+  background-color: tomato;
+}
+
+.grid-row-3 {
+  background-color: lightsalmon;
+}
+
+.grid-col-6 {
+  background-color: lightsalmon;
+}
