@@ -31,15 +31,19 @@ export function Gameboard(root) {
 
 function generateDOMgameboard() {
   const markup = html`
-    <section class="board-player">
-      <div class="board-title">Current Player: <span class="name"></span></div>
-      <div class="wrapper-grid"></div>
-    </section>
-    <hr />
-    <section class="board-enemy">
-      <div class="board-title">Current Enemy: <span class="name"></span></div>
-      <div class="wrapper-grid"></div>
-    </section>
+    <div class="gameboard">
+      <div class="board-player">
+        <div class="board-title">
+          Current Player: <span class="name"></span>
+        </div>
+        <div class="wrapper-grid"></div>
+      </div>
+      <hr />
+      <div class="board-enemy">
+        <div class="board-title">Current Enemy: <span class="name"></span></div>
+        <div class="wrapper-grid"></div>
+      </div>
+    </div>
   `;
 
   return generateDOM(markup);

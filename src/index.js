@@ -21,7 +21,7 @@ const stateGameboard = {
   gridEnemy: game.state.currEnemy.gameboard.grid,
 };
 
-const gameboardEl = $(".gameboard");
+const gameboardEl = $(".wrapper-gameboard");
 const viewGameboard = Gameboard(gameboardEl);
 viewGameboard.render();
 viewGameboard.loadData(stateGameboard);

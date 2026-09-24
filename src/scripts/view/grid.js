@@ -75,5 +75,5 @@ function generateDOMgrid() {
     .map((_, rowN) => row(rowN))
     .join("");
 
-  return generateDOM(`<div class="grid">${grid}</section>`);
+  return generateDOM(html`<div class="grid">${grid}</div>`);
 }
