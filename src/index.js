@@ -14,14 +14,21 @@ const game = Game("player 1", "player 2");
 game.player1.placeShipsRandom();
 game.player2.placeShipsRandom();
 
+const stateGameboard = {
+  namePlayer: game.state.currPlayer.name,
+  nameEnemy: game.state.currEnemy.name,
+  gridPlayer: game.state.currPlayer.gameboard.grid,
+  gridEnemy: game.state.currEnemy.gameboard.grid,
+};
+
 const gameboardEl = $(".gameboard");
 const viewGameboard = Gameboard(gameboardEl);
 viewGameboard.render();
-viewGameboard.loadData(game.state);
+viewGameboard.loadData(stateGameboard);
 viewGameboard.bindClickEnemy(play);
 
 function play(target) {
   game.playRound(target);
   game.playRoundRandom();
-  viewGameboard.loadData(game.state);
+  viewGameboard.loadData(stateGameboard);
 }

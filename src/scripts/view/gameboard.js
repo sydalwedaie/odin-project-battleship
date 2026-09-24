@@ -18,12 +18,12 @@ export function Gameboard(root) {
     viewGridEnemy.render();
   };
 
-  const loadData = (state) => {
-    namePlayerEl.textContent = state.currPlayer.name;
-    nameEnemyEl.textContent = state.currEnemy.name;
+  const loadData = ({ namePlayer, nameEnemy, gridPlayer, gridEnemy }) => {
+    namePlayerEl.textContent = namePlayer;
+    nameEnemyEl.textContent = nameEnemy;
 
-    viewGridPlayer.loadData(state.currPlayer.gameboard.grid);
-    viewGridEnemy.loadData(state.currEnemy.gameboard.grid);
+    viewGridPlayer.loadData(gridPlayer);
+    viewGridEnemy.loadData(gridEnemy);
   };
 
   return { render, loadData, bindClickEnemy: viewGridEnemy.bindClickCell };
