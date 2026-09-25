@@ -10,10 +10,10 @@ import {
 function Grid(root) {
   const DOM = generateDOMgrid();
   const render = () => root.appendChild(DOM);
-  const loadData = (dataGrid, cb) => {
+  const loadData = (dataGrid, loadCell) => {
     gridForEach(dataGrid, (cell, row, col) => {
       const cellEl = $(`.grid-row-${row}.grid-col-${col}`, root);
-      cb(cellEl, cell);
+      loadCell(cellEl, cell);
     });
   };
   return { render, loadData };
@@ -28,7 +28,7 @@ export function GridPlayer(root) {
     });
   };
 
-  return Object.assign({}, grid, { loadData });
+  return { render: grid.render, loadData };
 }
 
 export function GridEnemy(root) {
@@ -49,7 +49,7 @@ export function GridEnemy(root) {
     });
   };
 
-  return Object.assign({}, grid, { loadData, bindClickCell });
+  return { render: grid.render, loadData, bindClickCell };
 }
 
 // Helpers
