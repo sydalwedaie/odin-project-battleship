@@ -26,12 +26,12 @@ export function ControllerWeb() {
     };
 
     viewGameboard.loadData(stateGameboard);
-    viewGameboard.bindClickEnemy(play);
+    viewGameboard.bindClickEnemy(playRound);
 
-    function play(target) {
+    function playRound(target) {
       try {
-        game.playRound(target);
-        game.playRoundRandom();
+        game.playTurn(target);
+        game.playTurnRandom();
         viewGameboard.loadData(stateGameboard);
       } catch (e) {
         alert(e);

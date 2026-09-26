@@ -28,7 +28,7 @@ describe("Test factory: Game init", () => {
   });
 
   test("should throw error if attempt to play before placing ships", () => {
-    expect(() => game.playRound([1, 1])).toThrow();
+    expect(() => game.playTurn([1, 1])).toThrow();
   });
 
   test("should place ships for both players", () => {
@@ -41,16 +41,16 @@ describe("Test factory: Game init", () => {
   test("should switch players after each round", () => {
     expect(game.state.currPlayer).toEqual(game.player1);
     expect(game.state.currEnemy).toEqual(game.player2);
-    game.playRound([1, 1]);
+    game.playTurn([1, 1]);
     expect(game.state.currPlayer).toEqual(game.player2);
     expect(game.state.currEnemy).toEqual(game.player1);
-    game.playRound([1, 1]);
+    game.playTurn([1, 1]);
     expect(game.state.currPlayer).toEqual(game.player1);
     expect(game.state.currEnemy).toEqual(game.player2);
   });
 
   test("should throw error if a target is already shut", () => {
-    expect(() => game.playRound([1, 1])).toThrow();
+    expect(() => game.playTurn([1, 1])).toThrow();
   });
 });
 
@@ -84,8 +84,8 @@ describe("Test winning game, two players", () => {
 
   test("should return true after gameover", () => {
     targets.forEach((target) => {
-      game.playRound(target);
-      game.playRound(target);
+      game.playTurn(target);
+      game.playTurn(target);
     });
 
     expect(game.state.gameover).toBe(true);
@@ -93,7 +93,7 @@ describe("Test winning game, two players", () => {
   });
 
   test("should throw error if attempts to play after gameover", () => {
-    expect(() => game.playRound([7, 3])).toThrow();
+    expect(() => game.playTurn([7, 3])).toThrow();
   });
 });
 
@@ -108,8 +108,8 @@ describe("Test two robot players", () => {
 
   test("should return true after a gameover", () => {
     while (!game.state.gameover) {
-      game.playRoundRandom();
-      if (!game.state.gameover) game.playRoundRandom();
+      game.playTurnRandom();
+      if (!game.state.gameover) game.playTurnRandom();
     }
 
     expect(game.state.gameover).toBe(true);

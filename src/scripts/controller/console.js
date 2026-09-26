@@ -12,11 +12,11 @@ export function ControllerConsole() {
 
   view.printRound();
 
-  const play = (coords) => {
-    game.playRound(coords);
-    game.playRoundRandom();
+  const playRound = (coords) => {
+    game.playTurn(coords);
+    game.playTurnRandom();
     view.printRound();
   };
 
-  return { game, play };
+  return { game, playRound };
 }

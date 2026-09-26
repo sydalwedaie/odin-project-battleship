@@ -13,7 +13,7 @@ export function Game(player1Name, player2Name) {
     gameover: false,
   };
 
-  const playRound = (targetCoords) => {
+  const playTurn = (targetCoords) => {
     if (!player1.gameboard.fleet.length || !player2.gameboard.fleet.length) {
       throw new Error("attempt to play before placing ships");
     }
@@ -37,13 +37,13 @@ export function Game(player1Name, player2Name) {
     }
   };
 
-  const playRoundRandom = () => {
+  const playTurnRandom = () => {
     let [row, col] = getRandomTarget();
     while (state.currEnemy.gameboard.grid[row][col].isShut) {
       [row, col] = getRandomTarget();
     }
-    playRound([row, col]);
+    playTurn([row, col]);
   };
 
-  return { player1, player2, comms, state, playRound, playRoundRandom };
+  return { player1, player2, comms, state, playTurn, playTurnRandom };
 }
