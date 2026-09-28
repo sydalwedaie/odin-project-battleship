@@ -6,8 +6,8 @@ export function ControllerWeb() {
   let game;
 
   const gameboardEl = $(".wrapper-gameboard");
-  const viewGameboard = Gameboard(gameboardEl);
-  viewGameboard.render();
+  const viewGameboard = Gameboard();
+  viewGameboard.render(gameboardEl);
 
   const initGame = (p1Name, p2Name) => {
     game = Game(p1Name, p2Name);

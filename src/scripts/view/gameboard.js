@@ -1,21 +1,22 @@
 import { $, html, generateDOM } from "../helpers.js";
 import { GridPlayer, GridEnemy } from "./grid.js";
 
-export function Gameboard(root) {
+export function Gameboard() {
   const DOM = generateDOMgameboard();
 
+  const containerEl = $(".gameboard", DOM);
   const gridPlayerEl = $(".board-player .wrapper-grid", DOM);
   const gridEnemyEl = $(".board-enemy .wrapper-grid", DOM);
   const namePlayerEl = $(".board-player .name", DOM);
   const nameEnemyEl = $(".board-enemy .name", DOM);
 
-  const viewGridPlayer = GridPlayer(gridPlayerEl);
-  const viewGridEnemy = GridEnemy(gridEnemyEl);
+  const viewGridPlayer = GridPlayer();
+  const viewGridEnemy = GridEnemy();
 
-  const render = () => {
+  const render = (root) => {
     root.appendChild(DOM);
-    viewGridPlayer.render();
-    viewGridEnemy.render();
+    viewGridPlayer.render(gridPlayerEl);
+    viewGridEnemy.render(gridEnemyEl);
   };
 
   const loadData = ({ namePlayer, nameEnemy, gridPlayer, gridEnemy }) => {

@@ -7,20 +7,23 @@ import {
   getPegEnemy,
 } from "../helpers.js";
 
-function Grid(root) {
+function Grid() {
   const DOM = generateDOMgrid();
-  const render = () => root.appendChild(DOM);
+  const containerEl = $(".grid", DOM);
+
+  const render = (root) => root.appendChild(DOM);
   const loadData = (dataGrid, loadCell) => {
     gridForEach(dataGrid, (cell, row, col) => {
-      const cellEl = $(`.grid-row-${row}.grid-col-${col}`, root);
+      const cellEl = $(`.grid-row-${row}.grid-col-${col}`, containerEl);
       loadCell(cellEl, cell);
     });
   };
-  return { render, loadData };
+
+  return { containerEl, render, loadData };
 }
 
-export function GridPlayer(root) {
-  const grid = Grid(root);
+export function GridPlayer() {
+  const grid = Grid();
 
   const loadData = (dataGrid) => {
     grid.loadData(dataGrid, (cellEl, cell) => {
@@ -31,8 +34,8 @@ export function GridPlayer(root) {
   return { render: grid.render, loadData };
 }
 
-export function GridEnemy(root) {
-  const grid = Grid(root);
+export function GridEnemy() {
+  const grid = Grid();
 
   const loadData = (dataGrid) => {
     grid.loadData(dataGrid, (cellEl, cell) => {
@@ -41,7 +44,7 @@ export function GridEnemy(root) {
   };
 
   const bindClickCell = (handleClick) => {
-    root.addEventListener("click", (e) => {
+    grid.containerEl.addEventListener("click", (e) => {
       if (e.target.closest(".grid-cell")) {
         const target = [e.target.dataset.row, e.target.dataset.col];
         handleClick(target);
