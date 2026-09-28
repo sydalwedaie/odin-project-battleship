@@ -26,7 +26,7 @@ export function ControllerWeb() {
     };
 
     viewGameboard.loadData(stateGameboard);
-    viewGameboard.bindClickEnemy(playRound);
+    viewGameboard.bindClickShoot(playRound);
 
     function playRound(target) {
       try {

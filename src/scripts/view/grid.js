@@ -43,7 +43,7 @@ export function GridEnemy() {
     });
   };
 
-  const bindClickCell = (handleClick) => {
+  const bindClickShoot = (handleClick) => {
     grid.containerEl.addEventListener("click", (e) => {
       if (e.target.closest(".grid-cell")) {
         const target = [e.target.dataset.row, e.target.dataset.col];
@@ -52,7 +52,7 @@ export function GridEnemy() {
     });
   };
 
-  return { render: grid.render, loadData, bindClickCell };
+  return { render: grid.render, loadData, bindClickShoot };
 }
 
 // Helpers

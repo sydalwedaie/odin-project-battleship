@@ -27,7 +27,7 @@ export function Gameboard() {
     viewGridEnemy.loadData(gridEnemy);
   };
 
-  return { render, loadData, bindClickEnemy: viewGridEnemy.bindClickCell };
+  return { render, loadData, bindClickShoot: viewGridEnemy.bindClickShoot };
 }
 
 function generateDOMgameboard() {
