@@ -9,4 +9,4 @@ import { ControllerWeb } from "./scripts/controller/web.js";
 // window.cController = cController;
 
 const controllerWeb = ControllerWeb();
-controllerWeb.start();
+controllerWeb;

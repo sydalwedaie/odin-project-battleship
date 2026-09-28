@@ -1,23 +1,28 @@
 import { Game } from "../game/game.js";
 import { Gameboard } from "../view/gameboard.js";
+import { InitGame } from "../view/init_game.js";
 import { $ } from "../helpers.js";
 
 export function ControllerWeb() {
-  let game;
-
+  const containerInitGameEl = $(".container-init-game");
   const containerGameboardEl = $(".container-gameboard");
-  const viewGameboard = Gameboard();
-  viewGameboard.render(containerGameboardEl);
 
-  const initGame = (p1Name, p2Name) => {
-    game = Game(p1Name, p2Name);
-  };
+  const viewInitGame = InitGame();
+  viewInitGame.render(containerInitGameEl);
 
-  const start = () => {
-    initGame("sayed", "halboos");
+  function initGame(namePlayer1, namePlayer2) {
+    containerGameboardEl.innerHTML = "";
+    const game = Game(namePlayer1, namePlayer2);
+
     game.player1.placeShipsRandom();
     game.player2.placeShipsRandom();
 
+    startGame(game);
+  }
+
+  function startGame(game) {
+    const viewGameboard = Gameboard();
+    viewGameboard.render(containerGameboardEl);
     const stateGameboard = {
       namePlayer: game.state.currPlayer.name,
       nameEnemy: game.state.currEnemy.name,
@@ -37,7 +42,7 @@ export function ControllerWeb() {
         alert(e);
       }
     }
-  };
+  }
 
-  return { start };
+  viewInitGame.bindClickInitGame(initGame);
 }
