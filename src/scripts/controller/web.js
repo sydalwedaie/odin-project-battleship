@@ -5,9 +5,9 @@ import { $ } from "../helpers.js";
 export function ControllerWeb() {
   let game;
 
-  const gameboardEl = $(".wrapper-gameboard");
+  const containerGameboardEl = $(".container-gameboard");
   const viewGameboard = Gameboard();
-  viewGameboard.render(gameboardEl);
+  viewGameboard.render(containerGameboardEl);
 
   const initGame = (p1Name, p2Name) => {
     game = Game(p1Name, p2Name);
