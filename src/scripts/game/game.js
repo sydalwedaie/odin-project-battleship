@@ -3,8 +3,8 @@ import { getRandomTarget } from "../helpers.js";
 import { Comms } from "./comms.js";
 
 export function Game(player1Name, player2Name) {
-  const player1 = Player(player1Name);
-  const player2 = Player(player2Name);
+  const player1 = Player(player1Name || "Player 1");
+  const player2 = Player(player2Name || "Player 2");
   const comms = Comms();
 
   const state = {
