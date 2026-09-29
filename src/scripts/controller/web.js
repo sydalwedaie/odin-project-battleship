@@ -2,27 +2,47 @@ import { Game } from "../game/game.js";
 import { Gameboard } from "../view/gameboard.js";
 import { InitGame } from "../view/init_game.js";
 import { $ } from "../helpers.js";
+import { PlaceShips } from "../view/place_ships.js";
 
 export function ControllerWeb() {
   const containerInitGameEl = $(".container-init-game");
+  const containerPlaceShipsEl = $(".container-place-ships");
   const containerGameboardEl = $(".container-gameboard");
+  const containerGameoverEl = $(".container-gameover");
 
-  const viewInitGame = InitGame();
-  viewInitGame.render(containerInitGameEl);
-
-  function initGame(namePlayer1, namePlayer2) {
-    containerGameboardEl.innerHTML = "";
-    const game = Game(namePlayer1, namePlayer2);
-
-    game.player1.placeShipsRandom();
-    game.player2.placeShipsRandom();
-
-    startGame(game);
+  function switchPage(page) {
+    if (page !== "init-game") containerInitGameEl.innerHTML = "";
+    if (page !== "place-ships") containerPlaceShipsEl.innerHTML = "";
+    if (page !== "gameboard") containerGameboardEl.innerHTML = "";
+    if (page !== "gameover") containerGameoverEl.innerHTML = "";
   }
 
-  function startGame(game) {
+  handlePageInitGame();
+
+  function handlePageInitGame() {
+    switchPage("init-game");
+    const viewInitGame = InitGame();
+    viewInitGame.render(containerInitGameEl);
+    viewInitGame.bindClickInitGame((namePlayer1, namePlayer2) => {
+      const game = Game(namePlayer1, namePlayer2);
+      handlePagePlaceShips(game);
+    });
+  }
+
+  function handlePagePlaceShips(game) {
+    switchPage("place-ships");
+    const viewPlaceShips = PlaceShips();
+    viewPlaceShips.render(containerPlaceShipsEl);
+    viewPlaceShips.bindClickStartGame(() => {
+      game.player1.placeShipsRandom();
+      game.player2.placeShipsRandom();
+      handlePageGameboard(game);
+    });
+  }
+
+  function handlePageGameboard(game) {
+    switchPage("gameboard");
     const viewGameboard = Gameboard();
-    viewGameboard.render(containerGameboardEl);
     const stateGameboard = {
       namePlayer: game.state.currPlayer.name,
       nameEnemy: game.state.currEnemy.name,
@@ -30,6 +50,7 @@ export function ControllerWeb() {
       gridEnemy: game.state.currEnemy.gameboard.grid,
     };
 
+    viewGameboard.render(containerGameboardEl);
     viewGameboard.loadData(stateGameboard);
     viewGameboard.bindClickShoot(playRound);
 
@@ -43,6 +64,4 @@ export function ControllerWeb() {
       }
     }
   }
-
-  viewInitGame.bindClickInitGame(initGame);
 }
