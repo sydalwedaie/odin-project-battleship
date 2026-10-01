@@ -3,10 +3,9 @@ import "./assets/reset.css";
 import "./index.css";
 import "./template.html";
 import { ControllerConsole } from "./scripts/controller/console.js";
-import { ControllerWeb } from "./scripts/controller/web.js";
+import { Controller } from "./scripts/controller/controller.js";
 
 // const cController = ControllerConsole();
 // window.cController = cController;
 
-const controllerWeb = ControllerWeb();
-controllerWeb;
+const controller = Controller();
