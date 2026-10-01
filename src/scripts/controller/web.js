@@ -44,15 +44,17 @@ export function ControllerWeb() {
   function handlePageGameboard(game) {
     switchPage("gameboard");
     const viewGameboard = Gameboard();
-    const stateGameboard = {
-      namePlayer: game.state.currPlayer.name,
-      nameEnemy: game.state.currEnemy.name,
-      gridPlayer: game.state.currPlayer.gameboard.grid,
-      gridEnemy: game.state.currEnemy.gameboard.grid,
+    const stateGameboard = () => {
+      return {
+        namePlayer: game.state.currPlayer.name,
+        nameEnemy: game.state.currEnemy.name,
+        gridPlayer: game.state.currPlayer.gameboard.grid,
+        gridEnemy: game.state.currEnemy.gameboard.grid,
+      };
     };
 
     viewGameboard.render(containerGameboardEl);
-    viewGameboard.loadData(stateGameboard);
+    viewGameboard.loadData(stateGameboard());
     viewGameboard.bindClickShoot(playRound);
 
     function playRound(target) {
@@ -67,7 +69,7 @@ export function ControllerWeb() {
           handlePageGameover(game);
           return;
         }
-        viewGameboard.loadData(stateGameboard);
+        viewGameboard.loadData(stateGameboard());
       } catch (e) {
         alert(e);
       }
