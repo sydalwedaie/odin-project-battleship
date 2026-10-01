@@ -8,8 +8,8 @@ export function Gameover() {
 
   const render = (root) => root.appendChild(DOM);
   const loadData = (namePlayer, nameEnemy) => {
-    nameEnemyEl.textContent = namePlayer;
-    namePlayerEl.textContent = nameEnemy;
+    namePlayerEl.textContent = namePlayer;
+    nameEnemyEl.textContent = nameEnemy;
   };
   const bindClickPlayAgain = (handleClick) => {
     containerEl.addEventListener("click", (e) => {
