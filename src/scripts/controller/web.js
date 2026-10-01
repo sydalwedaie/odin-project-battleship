@@ -44,7 +44,7 @@ export function ControllerWeb() {
   function handlePageGameboard(game) {
     switchPage("gameboard");
     const viewGameboard = Gameboard();
-    const stateGameboard = () => {
+    const getStateGameboard = () => {
       return {
         namePlayer: game.state.currPlayer.name,
         nameEnemy: game.state.currEnemy.name,
@@ -54,25 +54,29 @@ export function ControllerWeb() {
     };
 
     viewGameboard.render(containerGameboardEl);
-    viewGameboard.loadData(stateGameboard());
+    viewGameboard.loadData(getStateGameboard());
     viewGameboard.bindClickShoot(playRound);
 
-    function playRound(target) {
+    function playTurn(target) {
       try {
-        game.playTurn(target);
-        if (game.state.gameover) {
-          handlePageGameover(game);
-          return;
+        if (target) {
+          game.playTurn(target);
+        } else {
+          game.playTurnRandom();
         }
-        game.playTurnRandom();
-        if (game.state.gameover) {
-          handlePageGameover(game);
-          return;
-        }
-        viewGameboard.loadData(stateGameboard());
       } catch (e) {
         alert(e);
       }
+
+      viewGameboard.loadData(getStateGameboard());
+      if (game.state.gameover) {
+        handlePageGameover(game);
+      }
+    }
+
+    function playRound(target) {
+      playTurn(target);
+      playTurn();
     }
   }
 
