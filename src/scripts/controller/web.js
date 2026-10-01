@@ -3,6 +3,7 @@ import { Gameboard } from "../view/gameboard.js";
 import { InitGame } from "../view/init_game.js";
 import { $ } from "../helpers.js";
 import { PlaceShips } from "../view/place_ships.js";
+import { Gameover } from "../view/gameover.js";
 
 export function ControllerWeb() {
   const containerInitGameEl = $(".container-init-game");
@@ -57,11 +58,30 @@ export function ControllerWeb() {
     function playRound(target) {
       try {
         game.playTurn(target);
+        if (game.state.gameover) {
+          handlePageGameover(game);
+          return;
+        }
         game.playTurnRandom();
+        if (game.state.gameover) {
+          handlePageGameover(game);
+          return;
+        }
         viewGameboard.loadData(stateGameboard);
       } catch (e) {
         alert(e);
       }
     }
+  }
+
+  function handlePageGameover(game) {
+    switchPage("gameover");
+    const viewGameover = Gameover();
+    viewGameover.render(containerGameoverEl);
+    viewGameover.loadData(
+      game.state.currPlayer.name,
+      game.state.currEnemy.name,
+    );
+    viewGameover.bindClickPlayAgain(handlePageInitGame);
   }
 }
