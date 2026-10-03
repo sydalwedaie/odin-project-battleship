@@ -1,9 +1,27 @@
-import { generateDOM, html, $ } from "../helpers.js";
+import { generateDOM, html, $, getRandomPlacement } from "../helpers.js";
+import { GridPlayer } from "./grid.js";
 
 export function PlaceShips() {
   const DOM = generateDOMplaceShips();
   const containerEl = $(".place-ships", DOM);
-  const render = (root) => root.appendChild(DOM);
+  const gridEl = $(".wrapper-grid", DOM);
+
+  const viewGridPlayer = GridPlayer();
+  const render = (root) => {
+    root.appendChild(DOM);
+    viewGridPlayer.render(gridEl);
+  };
+
+  const bindClickRandomize = (handleClick) => {
+    containerEl.addEventListener("click", (e) => {
+      if (!e.target.closest(".btn-randomize")) return;
+      e.preventDefault();
+      const { grid, formation } = getRandomPlacement();
+      viewGridPlayer.loadData(grid);
+      handleClick(formation);
+    });
+  };
+
   const bindClickStartGame = (handleClick) => {
     containerEl.addEventListener("click", (e) => {
       if (!e.target.closest(".btn-start-game")) return;
@@ -12,12 +30,14 @@ export function PlaceShips() {
     });
   };
 
-  return { render, bindClickStartGame };
+  return { render, bindClickStartGame, bindClickRandomize };
 }
 
 function generateDOMplaceShips() {
   const markup = html`
     <div class="place-ships">
+      <div class="wrapper-grid"></div>
+      <button class="btn-randomize">Randomize</button>
       <button class="btn-start-game">Start Game!</button>
     </div>
   `;

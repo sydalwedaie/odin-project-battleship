@@ -16,8 +16,11 @@ function handlePageInitGame() {
 
 function handlePagePlaceShips(view, game) {
   view.display.placeShips();
+  view.placeShips.bindClickRandomize((formation) => {
+    game.player1.resetBoard();
+    game.player1.placeShips(formation);
+  });
   view.placeShips.bindClickStartGame(() => {
-    game.player1.placeShipsRandom();
     game.player2.placeShipsRandom();
     handlePageGameboard(view, game);
   });
