@@ -4,14 +4,12 @@ import {
   validateBounds,
   validateOverlap,
   placeItem,
+  createGrid,
 } from "../helpers.js";
 
 export function Gameboard() {
   // Create empty grid
-  const cell = () => ({ ship: null, isShut: false });
-  const row = () => Array(10).fill().map(cell);
-  const grid = Array(10).fill().map(row);
-
+  const grid = createGrid();
   const fleet = [];
 
   const placeShip = (ship, [row, col, orientation]) => {
@@ -34,7 +32,6 @@ export function Gameboard() {
 
     // Place ships
     placeItem(grid, ship, ship.length, [row, col, orientation]);
-
     fleet.push(ship);
   };
 

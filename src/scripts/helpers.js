@@ -83,7 +83,7 @@ export const getRandomPlacement = () => {
 };
 
 export function createGrid() {
-  const cell = () => ({ ship: null, isShut: null });
+  const cell = () => ({ ship: null, isShut: false });
   const row = () => Array(10).fill().map(cell);
   return Array(10).fill().map(row);
 }
