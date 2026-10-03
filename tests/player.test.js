@@ -1,5 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import { Player } from "../src/scripts/game/player.js";
+import { createGrid } from "../src/scripts/helpers.js";
 
 describe("Test factory: Player", () => {
   test("should return name of player", () => {
@@ -42,5 +43,14 @@ describe("Test factory: Player", () => {
     const player = Player("name");
     player.placeShipsRandom();
     expect(player.gameboard.fleet.length).toBe(5);
+  });
+
+  test("should reset board after placing ships", () => {
+    const player = Player("name");
+    const emptyGrid = createGrid();
+    player.placeShipsRandom();
+    player.resetBoard();
+    expect(player.gameboard.grid).toEqual(emptyGrid);
+    expect(player.gameboard.fleet.length).toBe(0);
   });
 });

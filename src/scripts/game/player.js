@@ -1,6 +1,6 @@
 import { Gameboard } from "./gameboard.js";
 import { Ship } from "./ship.js";
-import { getRandomPlacement } from "../helpers.js";
+import { getRandomPlacement, gridForEach } from "../helpers.js";
 
 export function Player(name) {
   const gameboard = Gameboard();
@@ -27,5 +27,13 @@ export function Player(name) {
     placeShips(getRandomPlacement().formation);
   };
 
-  return { name, gameboard, placeShips, placeShipsRandom };
+  const resetBoard = () => {
+    gameboard.fleet.length = 0;
+    gridForEach(gameboard.grid, (cell) => {
+      cell.ship = null;
+      cell.isShut = false;
+    });
+  };
+
+  return { name, gameboard, placeShips, placeShipsRandom, resetBoard };
 }
