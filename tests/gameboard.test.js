@@ -69,6 +69,14 @@ describe("Test Gameboard: ship placement errors", () => {
     expect(() => gameboard.placeShip(shipB, [4, 2, "h"])).toThrow();
     expect(() => gameboard.placeShip(shipB, [2, 6, "v"])).toThrow();
   });
+
+  test("should throw error if attempt to place more than 5 ships", () => {
+    gameboard.placeShip(shipA, [5, 4, "h"]);
+    gameboard.placeShip(shipA, [6, 4, "h"]);
+    gameboard.placeShip(shipA, [7, 4, "h"]);
+    gameboard.placeShip(shipA, [8, 4, "h"]);
+    expect(() => gameboard.placeShip(shipA, [9, 4, "h"])).toThrow();
+  });
 });
 
 describe("Test Gameboard: ship placement", () => {

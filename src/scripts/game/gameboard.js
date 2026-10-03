@@ -30,6 +30,10 @@ export function Gameboard() {
       throw new Error("ships overlap");
     }
 
+    if (fleet.length === 5) {
+      throw new Error("attempt to place more than 5 ships");
+    }
+
     // Place ships
     placeItem(grid, ship, ship.length, [row, col, orientation]);
     fleet.push(ship);
