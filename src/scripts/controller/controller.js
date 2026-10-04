@@ -41,16 +41,9 @@ function handlePageGameboard(view, game) {
   view.gameboard.bindClickShoot(playRound);
 
   function playTurn(target) {
-    try {
-      if (target) {
-        game.playTurn(target);
-      } else {
-        game.playTurnRandom();
-      }
-    } catch (e) {
-      alert(e);
-    }
-
+    if (game.state.gameover) return;
+    target && game.playTurn(target);
+    !target && game.playTurnRandom();
     view.gameboard.loadData(getStateGameboard());
     if (game.state.gameover) {
       handlePageGameover(view, game);
@@ -58,8 +51,12 @@ function handlePageGameboard(view, game) {
   }
 
   function playRound(target) {
-    playTurn(target);
-    playTurn();
+    try {
+      playTurn(target);
+      playTurn();
+    } catch (e) {
+      alert(e);
+    }
   }
 }
 
