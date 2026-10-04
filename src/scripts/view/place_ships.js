@@ -14,6 +14,7 @@ export function PlaceShips() {
 
   const bindClickRandomize = (handleClick) => {
     containerEl.addEventListener("click", (e) => {
+      $(".btn-start-game", containerEl).removeAttribute("disabled");
       if (!e.target.closest(".btn-randomize")) return;
       e.preventDefault();
       const { grid, formation } = getRandomPlacement();
@@ -38,7 +39,7 @@ function generateDOMplaceShips() {
     <div class="place-ships">
       <div class="wrapper-grid"></div>
       <button class="btn-randomize">Randomize</button>
-      <button class="btn-start-game">Start Game!</button>
+      <button class="btn-start-game" disabled>Start Game!</button>
     </div>
   `;
   return generateDOM(markup);

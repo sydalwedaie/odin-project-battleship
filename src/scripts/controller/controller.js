@@ -20,9 +20,14 @@ function handlePagePlaceShips(view, game) {
     game.player1.resetBoard();
     game.player1.placeShips(formation);
   });
+  game.player2.placeShipsRandom();
   view.placeShips.bindClickStartGame(() => {
-    game.player2.placeShipsRandom();
-    handlePageGameboard(view, game);
+    if (
+      game.player1.gameboard.fleet.length &&
+      game.player2.gameboard.fleet.length
+    ) {
+      handlePageGameboard(view, game);
+    }
   });
 }
 
