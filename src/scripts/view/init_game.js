@@ -12,8 +12,8 @@ export function InitGame() {
     containerEl.addEventListener("click", (e) => {
       if (!e.target.closest(".btn-init-game")) return;
       e.preventDefault();
-      const namePlayer1 = formEl.elements["name-player1"].value;
-      const namePlayer2 = formEl.elements["name-player2"].value;
+      const namePlayer1 = formEl.elements["name-player1"].value || "Player 1";
+      const namePlayer2 = formEl.elements["name-player2"].value || "Player 2";
       handleClick(namePlayer1, namePlayer2);
       formEl.reset();
     });
