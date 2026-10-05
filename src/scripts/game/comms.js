@@ -1,41 +1,63 @@
+import { html } from "../helpers.js";
+
 export function Comms() {
-  const history = [];
-  const getHistory = () => history;
-
-  const addRoundMessage = (currPlayerName, enemyGrid, [row, col]) => {
-    const result = enemyGrid[row][col].ship ? "hit" : "miss";
-    const msg = `${currPlayerName} targeted coordinates ${[row, col]} ... it was a ${result}`;
-    history.push(msg);
-  };
-
-  const addErrorMessage = (error) => {
-    const msg = "Invalid operation: " + error.message;
-    history.push(msg);
-  };
-
-  const addWelcomeMessage = (player1Name, player2Name) => {
+  const getMsgWelcome = (namePlayer1, namePlayer2) => {
     const currentHour = new Date().getHours();
     const greeting = currentHour < 12 ? "Good morning" : "Good evening";
-    const msg = `${greeting}, Captain ${player1Name}. Your mission is to defeat ${player2Name} by sinking all their ships. Let's proceed with placing your ships.`;
-    history.push(msg);
+    const msg = html`
+      <p>
+        ${greeting}, Captain
+        <strong>${namePlayer1}</strong>. Your mission is to defeat
+        <strong>${namePlayer2}</strong> by sinking all their ships. Let's
+        proceed with placing your ships.
+      </p>
+    `;
+    return msg;
   };
 
-  const addGameoverMessage = (currPlayerName, player1Name, player2Name) => {
-    const player1Wins = currPlayerName === player1Name;
+  const getMsgTurn = (namePlayer1, namePlayer, gridEnemy, [row, col]) => {
+    const result = gridEnemy[row][col].ship ? "hit" : "miss";
+    const nameShooter = namePlayer === namePlayer1 ? "You" : namePlayer;
+    const msg = html`
+      <p>
+        <strong>${nameShooter}</strong> targeted coordinates
+        [${[row, col].join(", ")}] ... it was a <strong>${result}</strong>
+      </p>
+    `;
+    return msg;
+  };
+
+  const getMsgError = (error) => {
+    return `<p>Invalid operation: ${error.message}</p>`;
+  };
+
+  const getMsgGameover = (nameCurrPlayer, namePlayer1, namePlayer2) => {
+    const player1Wins = nameCurrPlayer === namePlayer1;
     let msg;
     if (player1Wins) {
-      msg = `Job well done Captain ${player1Name}! You have defeated ${player2Name} and sunk all their ships.`;
+      msg = html`
+        <p>
+          Job well done Captain <strong>${namePlayer1}</strong>! You have
+          defeated
+          <strong>${namePlayer2}</strong>
+          and sunk all their ships.
+        </p>
+      `;
     } else {
-      msg = `We underestimated the enemy, Captain ${player1Name}. ${player2Name} has sunk all our ships.`;
+      msg = html`
+        <p>
+          We underestimated the enemy, Captain <strong>${namePlayer1}</strong>.
+          <strong>${namePlayer2}</strong> has sunk all our ships.
+        </p>
+      `;
     }
-    history.push(msg);
+    return msg;
   };
 
   return {
-    getHistory,
-    addRoundMessage,
-    addErrorMessage,
-    addWelcomeMessage,
-    addGameoverMessage,
+    getMsgWelcome,
+    getMsgTurn,
+    getMsgError,
+    getMsgGameover,
   };
 }
