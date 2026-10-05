@@ -1,6 +1,5 @@
 import { Game } from "../game/game.js";
 import { View } from "../view/view.js";
-import { Comms } from "../game/comms.js";
 
 export function Controller() {
   handlePageInitGame();
@@ -8,16 +7,15 @@ export function Controller() {
 
 function handlePageInitGame() {
   const view = View();
-  const comms = Comms();
   view.display.initGame();
   view.initGame.bindClickInitGame((namePlayer1, namePlayer2) => {
     const game = Game(namePlayer1, namePlayer2);
-    handlePagePlaceShips(view, game, comms);
+    handlePagePlaceShips(view, game);
   });
 }
 
-function handlePagePlaceShips(view, game, comms) {
-  const msg = comms.getMsgWelcome(game.player1.name, game.player2.name);
+function handlePagePlaceShips(view, game) {
+  const msg = view.comms.getMsgWelcome(game.player1.name, game.player2.name);
   view.display.placeShips();
   view.placeShips.loadData(msg);
   view.placeShips.bindClickRandomize((formation) => {
@@ -30,12 +28,12 @@ function handlePagePlaceShips(view, game, comms) {
       game.player1.gameboard.fleet.length &&
       game.player2.gameboard.fleet.length
     ) {
-      handlePageGameboard(view, game, comms);
+      handlePageGameboard(view, game);
     }
   });
 }
 
-function handlePageGameboard(view, game, comms) {
+function handlePageGameboard(view, game) {
   const getStateGameboard = () => {
     return {
       namePlayer: game.state.currPlayer.name,
@@ -54,7 +52,7 @@ function handlePageGameboard(view, game, comms) {
     game.playTurn(target);
     const namePrevPlayer = game.state.currEnemy.name;
     const gridPrevEnemy = game.state.currPlayer.gameboard.grid;
-    const msg = comms.getMsgTurn(
+    const msg = view.comms.getMsgTurn(
       game.player1.name,
       namePrevPlayer,
       gridPrevEnemy,
@@ -62,7 +60,7 @@ function handlePageGameboard(view, game, comms) {
     );
     view.gameboard.loadData(getStateGameboard(), msg);
     if (game.state.gameover) {
-      handlePageGameover(view, game, comms);
+      handlePageGameover(view, game);
     }
   }
 
@@ -71,14 +69,14 @@ function handlePageGameboard(view, game, comms) {
       playTurn(target);
       playTurn(game.generateValidTargetRandom());
     } catch (e) {
-      const msg = comms.getMsgError(e);
+      const msg = view.comms.getMsgError(e);
       view.gameboard.loadData(getStateGameboard(), msg);
     }
   }
 }
 
-function handlePageGameover(view, game, comms) {
-  const msg = comms.getMsgGameover(
+function handlePageGameover(view, game) {
+  const msg = view.comms.getMsgGameover(
     game.state.currPlayer.name,
     game.player1.name,
     game.player2.name,

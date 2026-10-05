@@ -3,12 +3,14 @@ import { Gameboard } from "./gameboard.js";
 import { Gameover } from "./gameover.js";
 import { InitGame } from "./init_game.js";
 import { PlaceShips } from "./place_ships.js";
+import { Comms } from "./comms.js";
 
 export function View() {
   const initGame = InitGame();
   const placeShips = PlaceShips();
   const gameboard = Gameboard();
   const gameover = Gameover();
+  const comms = Comms();
 
   const containerInitGameEl = $(".container-init-game");
   const containerPlaceShipsEl = $(".container-place-ships");
@@ -41,5 +43,5 @@ export function View() {
     },
   };
 
-  return { initGame, placeShips, gameboard, gameover, display };
+  return { initGame, placeShips, gameboard, gameover, comms, display };
 }
