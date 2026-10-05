@@ -19,8 +19,8 @@ export function PlaceShips() {
 
   const bindClickRandomize = (handleClick) => {
     containerEl.addEventListener("click", (e) => {
-      $(".btn-start-game", containerEl).removeAttribute("disabled");
       if (!e.target.closest(".btn-randomize")) return;
+      $(".btn-start-game", containerEl).removeAttribute("disabled");
       e.preventDefault();
       const { grid, formation } = getRandomPlacement();
       viewGridPlayer.loadData(grid);
