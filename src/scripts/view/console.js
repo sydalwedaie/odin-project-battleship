@@ -1,7 +1,7 @@
 import { gridMap } from "../helpers.js";
 import { getPegPlayer, getPegEnemy } from "../helpers.js";
 
-export function ViewConsole({ currPlayer, currEnemy, gameover }, comms) {
+export function ViewConsole({ currPlayer, currEnemy, gameover }) {
   const printBoard = (grid) => {
     console.log("OWN BOARD");
     console.table(gridMap(grid, getPegPlayer));
@@ -22,7 +22,6 @@ export function ViewConsole({ currPlayer, currEnemy, gameover }, comms) {
 
   const printRound = () => {
     console.clear();
-    console.log(comms.getHistory());
     console.log("CURRENT PLAYER: ", currPlayer.name);
     printBoardAsTarget(currEnemy.gameboard.grid);
     printBoard(currPlayer.gameboard.grid);
