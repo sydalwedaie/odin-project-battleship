@@ -1,5 +1,6 @@
 import { Game } from "../game/game.js";
 import { View } from "../view/view.js";
+import { Comms } from "../game/comms.js";
 
 export function Controller() {
   handlePageInitGame();
@@ -7,15 +8,18 @@ export function Controller() {
 
 function handlePageInitGame() {
   const view = View();
+  const comms = Comms();
   view.display.initGame();
   view.initGame.bindClickInitGame((namePlayer1, namePlayer2) => {
     const game = Game(namePlayer1, namePlayer2);
-    handlePagePlaceShips(view, game);
+    handlePagePlaceShips(view, game, comms);
   });
 }
 
-function handlePagePlaceShips(view, game) {
+function handlePagePlaceShips(view, game, comms) {
+  const msg = comms.getMsgWelcome(game.player1.name, game.player2.name);
   view.display.placeShips();
+  view.placeShips.loadData(msg);
   view.placeShips.bindClickRandomize((formation) => {
     game.player1.resetBoard();
     game.player1.placeShips(formation);
@@ -26,12 +30,12 @@ function handlePagePlaceShips(view, game) {
       game.player1.gameboard.fleet.length &&
       game.player2.gameboard.fleet.length
     ) {
-      handlePageGameboard(view, game);
+      handlePageGameboard(view, game, comms);
     }
   });
 }
 
-function handlePageGameboard(view, game) {
+function handlePageGameboard(view, game, comms) {
   const getStateGameboard = () => {
     return {
       namePlayer: game.state.currPlayer.name,
@@ -42,31 +46,44 @@ function handlePageGameboard(view, game) {
   };
 
   view.display.gameboard();
-  view.gameboard.loadData(getStateGameboard());
+  view.gameboard.loadData(getStateGameboard(), "Ready?");
   view.gameboard.bindClickShoot(playRound);
 
   function playTurn(target) {
     if (game.state.gameover) return;
-    target && game.playTurn(target);
-    !target && game.playTurnRandom();
-    view.gameboard.loadData(getStateGameboard());
+    game.playTurn(target);
+    const namePrevPlayer = game.state.currEnemy.name;
+    const gridPrevEnemy = game.state.currPlayer.gameboard.grid;
+    const msg = comms.getMsgTurn(
+      game.player1.name,
+      namePrevPlayer,
+      gridPrevEnemy,
+      target,
+    );
+    view.gameboard.loadData(getStateGameboard(), msg);
     if (game.state.gameover) {
-      handlePageGameover(view, game);
+      handlePageGameover(view, game, comms);
     }
   }
 
   function playRound(target) {
     try {
       playTurn(target);
-      playTurn();
+      playTurn(game.generateValidTargetRandom());
     } catch (e) {
-      alert(e);
+      const msg = comms.getMsgError(e);
+      view.gameboard.loadData(getStateGameboard(), msg);
     }
   }
 }
 
-function handlePageGameover(view, game) {
+function handlePageGameover(view, game, comms) {
+  const msg = comms.getMsgGameover(
+    game.state.currPlayer.name,
+    game.player1.name,
+    game.player2.name,
+  );
   view.display.gameover();
-  view.gameover.loadData(game.state.currPlayer.name, game.state.currEnemy.name);
+  view.gameover.loadData(msg);
   view.gameover.bindClickPlayAgain(handlePageInitGame);
 }

@@ -4,12 +4,17 @@ import { GridPlayer } from "./grid.js";
 export function PlaceShips() {
   const DOM = generateDOMplaceShips();
   const containerEl = $(".place-ships", DOM);
+  const commsEl = $(".comms", containerEl);
   const gridEl = $(".wrapper-grid", DOM);
 
   const viewGridPlayer = GridPlayer();
   const render = (root) => {
     root.appendChild(DOM);
     viewGridPlayer.render(gridEl);
+  };
+
+  const loadData = (msgWelcome) => {
+    commsEl.appendChild(generateDOM(msgWelcome));
   };
 
   const bindClickRandomize = (handleClick) => {
@@ -31,12 +36,13 @@ export function PlaceShips() {
     });
   };
 
-  return { render, bindClickStartGame, bindClickRandomize };
+  return { render, loadData, bindClickStartGame, bindClickRandomize };
 }
 
 function generateDOMplaceShips() {
   const markup = html`
     <div class="place-ships">
+      <div class="comms"></div>
       <div class="wrapper-grid"></div>
       <button class="btn-randomize">Randomize</button>
       <button class="btn-start-game" disabled>Start Game!</button>
