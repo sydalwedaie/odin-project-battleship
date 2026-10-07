@@ -50,12 +50,12 @@ function handlePageGameboard(view, game) {
   function playTurn(target) {
     if (game.state.gameover) return;
     game.playTurn(target);
-    const namePrevPlayer = game.state.currEnemy.name;
-    const gridPrevEnemy = game.state.currPlayer.gameboard.grid;
+    const prevNamePlayer = game.state.currEnemy.name;
+    const prevGridEnemy = game.state.currPlayer.gameboard.grid;
     const msg = view.comms.getMsgTurn(
       game.player1.name,
-      namePrevPlayer,
-      gridPrevEnemy,
+      prevNamePlayer,
+      prevGridEnemy,
       target,
     );
     view.gameboard.loadData(getStateGameboard(), msg);
