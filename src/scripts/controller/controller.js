@@ -44,7 +44,7 @@ function handlePageGameboard(view, game) {
   };
 
   view.display.gameboard();
-  view.gameboard.loadData(getStateGameboard(), "Ready?");
+  view.gameboard.loadData(getStateGameboard(), "<p>Ready</p>");
   view.gameboard.bindClickShoot(playRound);
 
   function playTurn(target) {

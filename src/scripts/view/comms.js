@@ -16,10 +16,11 @@ export function Comms() {
   };
 
   const getMsgTurn = (namePlayer1, namePlayer, gridEnemy, [row, col]) => {
-    const result = gridEnemy[row][col].ship ? "hit" : "miss";
+    const isHit = gridEnemy[row][col].ship;
+    const result = isHit ? "hit" : "miss";
     const nameShooter = namePlayer === namePlayer1 ? "You" : namePlayer;
     const msg = html`
-      <p>
+      <p class="message message-turn ${isHit ? "message-hit" : "message-miss"}">
         <strong>${nameShooter}</strong> targeted coordinates
         [${[row, col].join(", ")}] ... it was a <strong>${result}</strong>
       </p>
@@ -28,7 +29,9 @@ export function Comms() {
   };
 
   const getMsgError = (error) => {
-    return `<p>Invalid operation: ${error.message}</p>`;
+    return html`
+      <p class="message message-error">Invalid operation: ${error.message}</p>
+    `;
   };
 
   const getMsgGameover = (nameCurrPlayer, namePlayer1, namePlayer2) => {

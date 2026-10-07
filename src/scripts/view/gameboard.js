@@ -27,7 +27,11 @@ export function Gameboard() {
     viewGridPlayer.loadData(gridPlayer);
     viewGridEnemy.loadData(gridEnemy);
 
+    const commsList = commsEl.querySelectorAll("p");
     commsEl.prepend(generateDOM(msg));
+    if (commsList.length > 2) {
+      commsList[commsList.length - 1].remove();
+    }
   };
 
   return {
