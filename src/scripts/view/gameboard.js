@@ -30,7 +30,12 @@ export function Gameboard() {
     commsEl.prepend(generateDOM(msg));
   };
 
-  return { render, loadData, bindClickShoot: viewGridEnemy.bindClickShoot };
+  return {
+    render,
+    loadData,
+    bindClickShoot: viewGridEnemy.bindClickShoot,
+    toggleDisableGrid: viewGridEnemy.toggleDisableGrid,
+  };
 }
 
 function generateDOMgameboard() {

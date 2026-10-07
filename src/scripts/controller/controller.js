@@ -36,10 +36,10 @@ function handlePagePlaceShips(view, game) {
 function handlePageGameboard(view, game) {
   const getStateGameboard = () => {
     return {
-      namePlayer: game.state.currPlayer.name,
-      nameEnemy: game.state.currEnemy.name,
-      gridPlayer: game.state.currPlayer.gameboard.grid,
-      gridEnemy: game.state.currEnemy.gameboard.grid,
+      namePlayer: game.player1.name,
+      nameEnemy: game.player2.name,
+      gridPlayer: game.player1.gameboard.grid,
+      gridEnemy: game.player2.gameboard.grid,
     };
   };
 
@@ -67,7 +67,14 @@ function handlePageGameboard(view, game) {
   function playRound(target) {
     try {
       playTurn(target);
-      playTurn(game.generateValidTargetRandom());
+      view.gameboard.toggleDisableGrid();
+      setTimeout(
+        () => {
+          playTurn(game.generateValidTargetRandom());
+          view.gameboard.toggleDisableGrid();
+        },
+        500 + Math.random() * 500,
+      );
     } catch (e) {
       const msg = view.comms.getMsgError(e);
       view.gameboard.loadData(getStateGameboard(), msg);

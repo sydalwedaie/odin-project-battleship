@@ -52,7 +52,21 @@ export function GridEnemy() {
     });
   };
 
-  return { render: grid.render, loadData, bindClickShoot };
+  const blockEvent = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const toggleDisableGrid = () => {
+    if (grid.containerEl.classList.contains("disabled")) {
+      grid.containerEl.removeEventListener("click", blockEvent, true);
+    } else {
+      grid.containerEl.addEventListener("click", blockEvent, true);
+    }
+    grid.containerEl.classList.toggle("disabled");
+  };
+
+  return { render: grid.render, loadData, bindClickShoot, toggleDisableGrid };
 }
 
 // Helpers
