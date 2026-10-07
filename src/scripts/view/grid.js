@@ -73,11 +73,9 @@ export function GridEnemy() {
 function generateDOMgrid() {
   const cell = (rowN, colN) => {
     const classList = `grid-cell grid-row-${rowN} grid-col-${colN}`;
-    return html`<div
-      class="${classList}"
-      data-row=${rowN}
-      data-col=${colN}
-    ></div>`;
+    return html`
+      <div class="${classList}" data-row=${rowN} data-col=${colN}></div>
+    `;
   };
 
   const row = (rowN) => {

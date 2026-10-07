@@ -36,10 +36,11 @@ function handlePagePlaceShips(view, game) {
 function handlePageGameboard(view, game) {
   const getStateGameboard = () => {
     return {
-      namePlayer: game.player1.name,
-      nameEnemy: game.player2.name,
-      gridPlayer: game.player1.gameboard.grid,
-      gridEnemy: game.player2.gameboard.grid,
+      namePlayerActive: game.state.currPlayer.name,
+      namePlayer1: game.player1.name,
+      namePlayer2: game.player2.name,
+      gridPlayer1: game.player1.gameboard.grid,
+      gridPlayer2: game.player2.gameboard.grid,
     };
   };
 
@@ -50,6 +51,7 @@ function handlePageGameboard(view, game) {
   function playTurn(target) {
     if (game.state.gameover) return;
     game.playTurn(target);
+    view.gameboard.toggleActiveBoard();
     const prevNamePlayer = game.state.currEnemy.name;
     const prevGridEnemy = game.state.currPlayer.gameboard.grid;
     const msg = view.comms.getMsgTurn(
