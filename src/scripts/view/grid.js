@@ -27,8 +27,6 @@ export function GridPlayer() {
 
   const loadData = (dataGrid) => {
     grid.loadData(dataGrid, (cellEl, cell, row, col) => {
-      cellEl.textContent = getPegPlayer(cell);
-
       // Reset for randomization to not leave traces
       cellEl.classList.remove(
         "ship",
@@ -43,6 +41,14 @@ export function GridPlayer() {
       if (cell.ship) {
         const cellClass = getClassShipPart(dataGrid, cell, row, col);
         cellEl.classList.add("ship", cellClass);
+
+        if (cell.isShut) {
+          cellEl.classList.add("peg-hit");
+        }
+      } else {
+        if (cell.isShut) {
+          cellEl.classList.add("peg-miss");
+        }
       }
     });
   };
@@ -55,10 +61,18 @@ export function GridEnemy() {
 
   const loadData = (dataGrid) => {
     grid.loadData(dataGrid, (cellEl, cell, row, col) => {
-      cellEl.textContent = getPegEnemy(cell);
       if (cell.ship?.isSunk()) {
         const cellClass = getClassShipPart(dataGrid, cell, row, col);
         cellEl.classList.add("ship", cellClass);
+      }
+      if (cell.ship) {
+        if (cell.isShut) {
+          cellEl.classList.add("peg-hit");
+        }
+      } else {
+        if (cell.isShut) {
+          cellEl.classList.add("peg-miss");
+        }
       }
     });
   };

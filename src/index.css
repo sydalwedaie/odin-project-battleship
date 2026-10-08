@@ -17,7 +17,7 @@ body {
 }
 
 .grid-cell {
-  background-color: tomato;
+  background-color: goldenrod;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,8 +26,26 @@ body {
     cursor: pointer;
   }
 
+  &::after {
+    content: "";
+    border-radius: 50%;
+    height: 0.9rem;
+    width: 0.9rem;
+  }
+
+  &.peg-hit::after {
+    background-color: tomato !important;
+  }
+
+  &.peg-miss::after {
+    background-color: antiquewhite;
+  }
+
   &.ship {
     border: 3px solid darkred;
+    &::after {
+      background-color: darkgoldenrod;
+    }
   }
 
   &.ship-vertical-tail {
@@ -60,9 +78,9 @@ body {
 }
 
 .grid-row-3 {
-  background-color: lightsalmon;
+  /* background-color: lightsalmon; */
 }
 
 .grid-col-6 {
-  background-color: lightsalmon;
+  /* background-color: lightsalmon; */
 }
