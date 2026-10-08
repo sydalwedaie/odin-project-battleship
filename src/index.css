@@ -6,7 +6,7 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 32px);
   grid-template-rows: repeat(10, 32px);
-  gap: 2px;
+  gap: 1px;
 
   padding: 1rem;
   border: 2px solid transparent;
@@ -18,10 +18,44 @@ body {
 
 .grid-cell {
   background-color: tomato;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .board-enemy & {
     cursor: pointer;
+  }
+
+  &.ship {
+    border: 3px solid darkred;
+  }
+
+  &.ship-vertical-tail {
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+  }
+
+  &.ship-vertical-mid {
+    border-block: none;
+  }
+
+  &.ship-vertical-head {
+    border-top: none;
+    border-radius: 0 0 50% 50%;
+  }
+
+  &.ship-horizontal-tail {
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+  }
+
+  &.ship-horizontal-mid {
+    border-inline: none;
+  }
+
+  &.ship-horizontal-head {
+    border-left: none;
+    border-radius: 0 50% 50% 0;
   }
 }
 

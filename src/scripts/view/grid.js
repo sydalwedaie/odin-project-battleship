@@ -15,7 +15,7 @@ function Grid() {
   const loadData = (dataGrid, loadCell) => {
     gridForEach(dataGrid, (cell, row, col) => {
       const cellEl = $(`.grid-row-${row}.grid-col-${col}`, containerEl);
-      loadCell(cellEl, cell);
+      loadCell(cellEl, cell, row, col);
     });
   };
 
@@ -26,8 +26,24 @@ export function GridPlayer() {
   const grid = Grid();
 
   const loadData = (dataGrid) => {
-    grid.loadData(dataGrid, (cellEl, cell) => {
+    grid.loadData(dataGrid, (cellEl, cell, row, col) => {
       cellEl.textContent = getPegPlayer(cell);
+
+      // Reset for randomization to not leave traces
+      cellEl.classList.remove(
+        "ship",
+        "ship-vertical-tail",
+        "ship-vertical-mid",
+        "ship-vertical-head",
+        "ship-horizontal-tail",
+        "ship-horizontal-mid",
+        "ship-horizontal-head",
+      );
+
+      if (cell.ship) {
+        const cellClass = getClassShipPart(dataGrid, cell, row, col);
+        cellEl.classList.add("ship", cellClass);
+      }
     });
   };
 
@@ -38,8 +54,12 @@ export function GridEnemy() {
   const grid = Grid();
 
   const loadData = (dataGrid) => {
-    grid.loadData(dataGrid, (cellEl, cell) => {
+    grid.loadData(dataGrid, (cellEl, cell, row, col) => {
       cellEl.textContent = getPegEnemy(cell);
+      if (cell.ship?.isSunk()) {
+        const cellClass = getClassShipPart(dataGrid, cell, row, col);
+        cellEl.classList.add("ship", cellClass);
+      }
     });
   };
 
@@ -91,4 +111,42 @@ function generateDOMgrid() {
     .join("");
 
   return generateDOM(html`<div class="grid">${grid}</div>`);
+}
+
+function getClassShipPart(grid, cell, row, col) {
+  const shipCurrent = cell.ship?.name;
+  const shipLeft = grid[row][col - 1]?.ship?.name;
+  const shipTop = grid[row - 1]?.[col]?.ship?.name;
+  const shipRight = grid[row][col + 1]?.ship?.name;
+  const shipBot = grid[row + 1]?.[col]?.ship?.name;
+
+  if (!shipCurrent) return "empty";
+  else if (hasShipsOnSides(false, false, false, true)) {
+    return "ship-vertical-tail";
+  } else if (hasShipsOnSides(false, true, false, true)) {
+    return "ship-vertical-mid";
+  } else if (hasShipsOnSides(false, true, false, false)) {
+    return "ship-vertical-head";
+  } else if (hasShipsOnSides(false, false, true, false)) {
+    return "ship-horizontal-tail";
+  } else if (hasShipsOnSides(true, false, true, false)) {
+    return "ship-horizontal-mid";
+  } else if (hasShipsOnSides(true, false, false, false)) {
+    return "ship-horizontal-head";
+  }
+
+  /* Return true if all 4 sides satisfy the condition
+   * For each side, tell if you want there to be a ship of the same type
+   * `true` means you want there to be a ship, `false` means you don't.
+   */
+  function hasShipsOnSides(left, top, right, bottom) {
+    const hasLeft = left ? shipLeft === shipCurrent : shipLeft !== shipCurrent;
+    const hasTop = top ? shipTop === shipCurrent : shipTop !== shipCurrent;
+    const hasRight = right
+      ? shipRight === shipCurrent
+      : shipRight !== shipCurrent;
+    const hasBot = bottom ? shipBot === shipCurrent : shipBot !== shipCurrent;
+
+    return hasLeft && hasTop && hasRight && hasBot;
+  }
 }
