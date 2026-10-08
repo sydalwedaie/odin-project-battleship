@@ -38,18 +38,7 @@ export function GridPlayer() {
         "ship-horizontal-head",
       );
 
-      if (cell.ship) {
-        const cellClass = getClassShipPart(dataGrid, cell, row, col);
-        cellEl.classList.add("ship", cellClass);
-
-        if (cell.isShut) {
-          cellEl.classList.add("peg-hit");
-        }
-      } else {
-        if (cell.isShut) {
-          cellEl.classList.add("peg-miss");
-        }
-      }
+      addClass(dataGrid, cell, cellEl, row, col, true);
     });
   };
 
@@ -61,19 +50,7 @@ export function GridEnemy() {
 
   const loadData = (dataGrid) => {
     grid.loadData(dataGrid, (cellEl, cell, row, col) => {
-      if (cell.ship?.isSunk()) {
-        const cellClass = getClassShipPart(dataGrid, cell, row, col);
-        cellEl.classList.add("ship", cellClass);
-      }
-      if (cell.ship) {
-        if (cell.isShut) {
-          cellEl.classList.add("peg-hit");
-        }
-      } else {
-        if (cell.isShut) {
-          cellEl.classList.add("peg-miss");
-        }
-      }
+      addClass(dataGrid, cell, cellEl, row, col, false);
     });
   };
 
@@ -162,5 +139,15 @@ function getClassShipPart(grid, cell, row, col) {
     const hasBot = bottom ? shipBot === shipCurrent : shipBot !== shipCurrent;
 
     return hasLeft && hasTop && hasRight && hasBot;
+  }
+}
+
+function addClass(grid, cell, cellEl, row, col, isPlayer) {
+  if (isPlayer ? cell.ship : cell.ship?.isSunk()) {
+    const cellClass = getClassShipPart(grid, cell, row, col);
+    cellEl.classList.add("ship", cellClass);
+  }
+  if (cell.isShut) {
+    cellEl.classList.add(cell.ship ? "peg-hit" : "peg-miss");
   }
 }
