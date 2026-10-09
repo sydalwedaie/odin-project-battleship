@@ -2,11 +2,15 @@ import { Game } from "../game/game.js";
 import { View } from "../view/view.js";
 
 export function Controller() {
-  handlePageInitGame();
+  const init = () => {
+    const view = View();
+    handlePageInitGame(view);
+  };
+
+  return { init };
 }
 
-function handlePageInitGame() {
-  const view = View();
+function handlePageInitGame(view) {
   view.display.initGame();
   view.initGame.bindClickInitGame((namePlayer1, namePlayer2) => {
     const game = Game(namePlayer1, namePlayer2);
@@ -92,5 +96,5 @@ function handlePageGameover(view, game) {
   );
   view.display.gameover();
   view.gameover.loadData(msg);
-  view.gameover.bindClickPlayAgain(handlePageInitGame);
+  view.gameover.bindClickPlayAgain(Controller().init);
 }

@@ -8,4 +8,4 @@ import { Controller } from "./scripts/controller/controller.js";
 // const cController = ControllerConsole();
 // window.cController = cController;
 
-const controller = Controller();
+Controller().init();
