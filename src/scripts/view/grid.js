@@ -57,8 +57,9 @@ export function GridEnemy() {
   const bindClickShoot = (handleClick) => {
     grid.containerEl.addEventListener("click", (e) => {
       if (e.target.closest(".grid-cell")) {
-        const target = [e.target.dataset.row, e.target.dataset.col];
-        handleClick(target);
+        const row = Number(e.target.dataset.row);
+        const col = Number(e.target.dataset.col);
+        handleClick([row, col]);
       }
     });
   };

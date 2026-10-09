@@ -19,10 +19,11 @@ export function Comms() {
     const isHit = gridEnemy[row][col].ship;
     const result = isHit ? "hit" : "miss";
     const nameShooter = namePlayer === namePlayer1 ? "You" : namePlayer;
+    const target = `${String.fromCharCode(col + 65)}${row + 1}`;
     const msg = html`
       <p class="message message-turn ${isHit ? "message-hit" : "message-miss"}">
-        <strong>${nameShooter}</strong> targeted coordinates
-        [${[row, col].join(", ")}] ... it was a <strong>${result}</strong>
+        <strong>${nameShooter}</strong> targeted <strong>${target}</strong> ...
+        it was a <strong>${result}</strong>
       </p>
     `;
     return msg;
