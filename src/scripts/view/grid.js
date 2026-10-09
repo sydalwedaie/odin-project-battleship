@@ -90,16 +90,28 @@ function generateDOMgrid() {
     `;
   };
 
+  const cellHeaderCol = (colN) => {
+    const letter = String.fromCharCode(colN + 65);
+    return html`<div class="header-col">${letter}</div>`;
+  };
+
+  const cellHeaderRow = (rowN) => {
+    return html`<div class="header-row">${rowN === 0 ? "" : rowN}</div>`;
+  };
+
   const row = (rowN) => {
     return Array(10)
       .fill()
-      .map((_, colN) => cell(rowN, colN))
+      .map((_, colN) => {
+        if (rowN === 0) return cellHeaderCol(colN);
+        return cell(rowN - 1, colN);
+      })
       .join("");
   };
 
-  const grid = Array(10)
+  const grid = Array(11)
     .fill()
-    .map((_, rowN) => row(rowN))
+    .map((_, rowN) => cellHeaderRow(rowN) + row(rowN))
     .join("");
 
   return generateDOM(html`<div class="grid">${grid}</div>`);

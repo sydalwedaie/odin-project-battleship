@@ -3,9 +3,10 @@ body {
 }
 
 .grid {
+  background-color: antiquewhite;
   display: grid;
-  grid-template-columns: repeat(10, 32px);
-  grid-template-rows: repeat(10, 32px);
+  grid-template-columns: repeat(11, 32px);
+  grid-template-rows: repeat(11, 32px);
   gap: 1px;
 
   padding: 1rem;
@@ -13,6 +14,16 @@ body {
   width: fit-content;
   &.active {
     border-color: darkgoldenrod;
+  }
+
+  .header-row,
+  .header-col {
+    background-color: darkgoldenrod;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: antiquewhite;
+    font-weight: bold;
   }
 }
 
@@ -34,7 +45,7 @@ body {
   }
 
   &.peg-hit::after {
-    background-color: tomato !important;
+    background-color: crimson !important;
   }
 
   &.peg-miss::after {
@@ -42,7 +53,7 @@ body {
   }
 
   &.ship {
-    border: 3px solid darkred;
+    border: 3px solid saddlebrown;
     &::after {
       background-color: darkgoldenrod;
     }
