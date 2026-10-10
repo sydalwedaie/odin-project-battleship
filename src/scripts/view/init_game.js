@@ -26,8 +26,12 @@ function generateDOMinitGame() {
   const markup = html`
     <div class="init-game">
       <form>
-        <div>
-          <label for="name-player1">Player 1 Name:</label>
+        <div class="card comms">
+          Enter player names below. You will play as Player 1 against the
+          computer.
+        </div>
+        <div class="card player1">
+          <label for="name-player1" class="card-header">Player 1</label>
           <input
             type="text"
             name="name-player1"
@@ -35,8 +39,8 @@ function generateDOMinitGame() {
             placeholder="Player 1"
           />
         </div>
-        <div>
-          <label for="name-player2">Player 2 Name:</label>
+        <div class="card player2">
+          <label for="name-player2" class="card-header">Player 2</label>
           <input
             type="text"
             name="name-player2"
@@ -44,8 +48,8 @@ function generateDOMinitGame() {
             placeholder="Player 2"
           />
         </div>
-        <div>
-          <button class="btn-init-game">Initialize Game</button>
+        <div class="controls">
+          <button class="btn btn-init-game">Initialize Game</button>
         </div>
       </form>
     </div>
