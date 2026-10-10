@@ -48,12 +48,18 @@ footer {
   padding-inline: 1rem;
   cursor: pointer;
 
-  &:hover {
+  &:hover:not([disabled]) {
     box-shadow: 4px 4px;
     filter: brightness(1.1);
   }
-  &:active {
+
+  &:active:not([disabled]) {
     box-shadow: 3px 3px;
+  }
+
+  &:disabled {
+    background-color: wheat;
+    cursor: not-allowed;
   }
 }
 
@@ -62,14 +68,14 @@ footer {
  * -------------------------------------------- */
 
 .grid {
-  background-color: antiquewhite;
   display: grid;
-  grid-template-columns: repeat(11, 32px);
-  grid-template-rows: repeat(11, 32px);
+  grid-template-columns: repeat(11, 2rem);
+  grid-template-rows: repeat(11, 2rem);
   gap: 1px;
 
-  padding: 1rem;
-  border: 2px solid transparent;
+  padding: 1px;
+  border: 1rem solid goldenrod;
+  box-shadow: 5px 5px;
   width: fit-content;
   &.active {
     border-color: darkgoldenrod;
@@ -87,7 +93,7 @@ footer {
 }
 
 .grid-cell {
-  background-color: goldenrod;
+  background-color: burlywood;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,5 +204,29 @@ footer {
         color: rosybrown;
       }
     }
+  }
+}
+
+.place-ships {
+  max-width: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+
+  .comms {
+    text-align: center;
+  }
+
+  .wrapper-grid {
+    display: flex;
+    justify-content: center;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 }

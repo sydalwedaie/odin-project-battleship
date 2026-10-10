@@ -42,10 +42,12 @@ export function PlaceShips() {
 function generateDOMplaceShips() {
   const markup = html`
     <div class="place-ships">
-      <div class="comms"></div>
+      <div class="card comms"></div>
       <div class="wrapper-grid"></div>
-      <button class="btn-randomize">Randomize</button>
-      <button class="btn-start-game" disabled>Start Game!</button>
+      <div class="controls">
+        <button class="btn btn-randomize">Randomize</button>
+        <button class="btn btn-start-game" disabled>Start Game!</button>
+      </div>
     </div>
   `;
   return generateDOM(markup);
