@@ -265,19 +265,16 @@ strong {
 
   .wrapper-info {
     display: flex;
-    flex-wrap: wrap;
     gap: 2rem;
   }
 
-  .messages,
-  .player-status {
-    flex: 1;
-    padding: 0;
-
+  .messages {
     .comms {
       height: calc(3lh + 2rem);
     }
+  }
 
+  .player-status {
     .player-active {
       font-size: 3rem;
       text-align: center;
