@@ -122,7 +122,9 @@ strong {
   }
 
   .board-enemy & {
-    cursor: pointer;
+    cursor:
+      url(assets/icon-target.png) 16 16,
+      pointer;
     &:hover:not([disabled]) {
       filter: brightness(0.9);
     }
