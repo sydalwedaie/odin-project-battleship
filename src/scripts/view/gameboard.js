@@ -57,20 +57,30 @@ export function Gameboard() {
 function generateDOMgameboard() {
   const markup = html`
     <div class="gameboard">
+      <div class="info">
+        <div class="card messages">
+          <div>Comms</div>
+          <div class="comms"></div>
+        </div>
+        <div class="card player-status">
+          <div>Active Player</div>
+          <div class="player-active"></div>
+        </div>
+      </div>
       <div class="wrapper-boards">
-        <div>Active Player: <span class="player-active"></span></div>
-        <div class="board-player">
-          <div class="board-title">Own Waters (<span class="name"></span>)</div>
+        <div class="board board-enemy">
+          <div class="card-header board-title">
+            Enemy Waters (<span class="name"></span>)
+          </div>
           <div class="wrapper-grid"></div>
         </div>
-        <div class="board-enemy">
-          <div class="board-title">
-            Enemy Wanters (<span class="name"></span>)
+        <div class="board board-player">
+          <div class="card-header board-title">
+            Own Waters (<span class="name"></span>)
           </div>
           <div class="wrapper-grid"></div>
         </div>
       </div>
-      <div class="comms"></div>
     </div>
   `;
 
