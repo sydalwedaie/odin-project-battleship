@@ -24,29 +24,31 @@ strong {
  * -------------------------------------------- */
 
 .card {
-  background-color: goldenrod;
   box-shadow: 5px 5px;
-  padding: 1rem;
-
-  p {
-    text-wrap: balance;
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .card-header {
   background-color: darkgoldenrod;
-  color: antiquewhite;
+  font-size: 1.2rem;
   font-weight: bold;
-  height: 2rem;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-inline: 1rem;
   text-transform: uppercase;
 }
 
+.card-content {
+  background-color: burlywood;
+  padding: 1rem;
+}
+
 .btn {
-  width: 12rem;
+  min-width: 8rem;
   height: 4rem;
   background-color: goldenrod;
   box-shadow: 6px 6px black;
@@ -57,12 +59,12 @@ strong {
   cursor: pointer;
 
   &:hover:not([disabled]) {
-    box-shadow: 4px 4px;
+    box-shadow: 5px 5px;
     filter: brightness(1.1);
   }
 
   &:active:not([disabled]) {
-    box-shadow: 3px 3px;
+    box-shadow: 4px 4px;
   }
 
   &:disabled {
@@ -173,27 +175,22 @@ strong {
 
 .init-game {
   max-width: 25rem;
-  form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 
-    .comms {
-      width: 100%;
-      text-align: center;
-    }
+  form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
     .player1,
     .player2 {
-      flex-grow: 1;
       display: flex;
-      flex-direction: column;
       gap: 1rem;
-    }
-
-    .controls {
-      width: 100%;
-      text-align: center;
+      align-items: center;
     }
 
     label {
@@ -201,6 +198,7 @@ strong {
     }
 
     input {
+      flex: 1;
       border: none;
       height: 2rem;
       background-color: navajowhite;
@@ -214,14 +212,14 @@ strong {
 }
 
 .place-ships {
-  max-width: 25rem;
+  max-width: 48rem;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
 
-  .comms {
-    text-align: center;
+  .wrapper-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .wrapper-grid {
@@ -234,6 +232,10 @@ strong {
     justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
+
+    button {
+      flex: 1;
+    }
   }
 }
 
@@ -242,7 +244,7 @@ strong {
   flex-direction: column;
   gap: 2rem;
 
-  .info {
+  .wrapper-info {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
@@ -252,21 +254,6 @@ strong {
   .player-status {
     flex: 1;
     padding: 0;
-
-    div:first-child {
-      background-color: darkgoldenrod;
-      padding: 0.5rem;
-      text-align: center;
-      font-weight: bold;
-      text-transform: uppercase;
-      border-bottom: 1px solid antiquewhite;
-    }
-
-    .comms,
-    .player-active {
-      padding: 1rem;
-      background-color: burlywood;
-    }
 
     .comms {
       height: calc(3lh + 2rem);

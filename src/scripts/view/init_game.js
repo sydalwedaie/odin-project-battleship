@@ -25,33 +25,42 @@ export function InitGame() {
 function generateDOMinitGame() {
   const markup = html`
     <div class="init-game">
-      <form>
-        <div class="card comms">
-          Enter player names below. You will play as Player 1 against the
-          computer.
+      <div class="card">
+        <div class="card-header">Initialization</div>
+        <div class="card-content">
+          <p>
+            Enter player names below. You will play as Player 1 against the
+            computer.
+          </p>
         </div>
-        <div class="card player1">
-          <label for="name-player1" class="card-header">Player 1</label>
-          <input
-            type="text"
-            name="name-player1"
-            id="name-player1"
-            placeholder="Player 1"
-          />
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <form>
+            <div class="player1">
+              <label for="name-player1">Player 1</label>
+              <input
+                type="text"
+                name="name-player1"
+                id="name-player1"
+                placeholder="Player 1"
+              />
+            </div>
+            <div class="player2">
+              <label for="name-player2">Player 2</label>
+              <input
+                type="text"
+                name="name-player2"
+                id="name-player2"
+                placeholder="Player 2"
+              />
+            </div>
+          </form>
         </div>
-        <div class="card player2">
-          <label for="name-player2" class="card-header">Player 2</label>
-          <input
-            type="text"
-            name="name-player2"
-            id="name-player2"
-            placeholder="Player 2"
-          />
-        </div>
-        <div class="controls">
-          <button class="btn btn-init-game">Initialize Game</button>
-        </div>
-      </form>
+      </div>
+      <div class="controls">
+        <button class="btn btn-init-game">Initialize Game</button>
+      </div>
     </div>
   `;
 

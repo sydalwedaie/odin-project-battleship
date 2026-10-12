@@ -57,14 +57,14 @@ export function Gameboard() {
 function generateDOMgameboard() {
   const markup = html`
     <div class="gameboard">
-      <div class="info">
+      <div class="wrapper-info">
         <div class="card messages">
-          <div>Comms</div>
-          <div class="comms"></div>
+          <div class="card-header">Comms</div>
+          <div class="card-content comms"></div>
         </div>
         <div class="card player-status">
-          <div>Active Player</div>
-          <div class="player-active"></div>
+          <div class="card-header">Active Player</div>
+          <div class="card-content player-active"></div>
         </div>
       </div>
       <div class="wrapper-boards">
