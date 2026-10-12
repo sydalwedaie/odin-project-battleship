@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:wght@300;400;700&display=swap");
 
 body {
   padding: 1rem;
@@ -8,6 +8,12 @@ body {
   align-items: center;
   background-color: antiquewhite;
   font-family: "Iosevka Charon Mono", monospace;
+}
+
+header {
+  font-size: 2rem;
+  font-weight: 300;
+  padding-top: 1rem;
 }
 
 main,
@@ -134,7 +140,8 @@ strong {
   }
 
   &.ship {
-    border: 4px solid saddlebrown;
+    border: 2px solid darkgoldenrod;
+    filter: brightness(0.95);
     &::after {
       background-color: darkgoldenrod;
     }
