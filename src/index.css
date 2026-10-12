@@ -278,3 +278,11 @@ strong {
     gap: 1rem;
   }
 }
+
+.gameover {
+  max-width: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}

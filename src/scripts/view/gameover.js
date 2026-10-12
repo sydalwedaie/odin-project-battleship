@@ -23,9 +23,13 @@ export function Gameover() {
 function generateDOMgameover() {
   const markup = html`
     <div class="gameover">
-      <h1>Game Over!</h1>
-      <div class="comms"></div>
-      <button class="btn-play-again">Play Again?</button>
+      <div class="card">
+        <h1 class="card-header">Game Over!</h1>
+        <div class="card-content comms"></div>
+      </div>
+      <div class="controls">
+        <button class="btn btn-play-again">Play Again?</button>
+      </div>
     </div>
   `;
   return generateDOM(markup);
