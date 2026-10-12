@@ -86,7 +86,7 @@ function generateDOMgrid() {
   const cell = (rowN, colN) => {
     const classList = `grid-cell grid-row-${rowN} grid-col-${colN}`;
     return html`
-      <div class="${classList}" data-row=${rowN} data-col=${colN}></div>
+      <button class="${classList}" data-row=${rowN} data-col=${colN}></button>
     `;
   };
 
@@ -162,5 +162,6 @@ function addClass(grid, cell, cellEl, row, col, isPlayer) {
   }
   if (cell.isShut) {
     cellEl.classList.add(cell.ship ? "peg-hit" : "peg-miss");
+    cellEl.setAttribute("disabled", "");
   }
 }

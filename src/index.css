@@ -115,9 +115,21 @@ strong {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+
+  &[disabled] {
+    cursor: not-allowed !important;
+  }
 
   .board-enemy & {
     cursor: pointer;
+    &:hover:not([disabled]) {
+      filter: brightness(0.9);
+    }
+    &:active:not([disabled]) {
+      border-top: 2px solid darkgoldenrod;
+      border-left: 2px solid darkgoldenrod;
+    }
   }
 
   .board-enemy .grid:not(.active) & {
