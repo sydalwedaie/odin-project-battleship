@@ -51,6 +51,7 @@ function handlePageGameboard(view, game) {
   view.display.gameboard();
   view.gameboard.loadData(getStateGameboard(), "<p>Ready</p>");
   view.gameboard.bindClickShoot(playRound);
+  view.gameboard.bindClickRestart(Controller().init);
 
   function playTurn(target) {
     if (game.state.gameover) return;

@@ -45,12 +45,21 @@ export function Gameboard() {
     $(".board-enemy .grid").classList.toggle("active");
   };
 
+  const bindClickRestart = (handleClick) => {
+    containerEl.addEventListener("click", (e) => {
+      if (!e.target.closest(".btn-restart")) return;
+      e.preventDefault();
+      handleClick();
+    });
+  };
+
   return {
     render,
     loadData,
     bindClickShoot: viewGridEnemy.bindClickShoot,
     toggleDisableGrid: viewGridEnemy.toggleDisableGrid,
     toggleActiveBoard,
+    bindClickRestart,
   };
 }
 
@@ -80,6 +89,9 @@ function generateDOMgameboard() {
           </div>
           <div class="wrapper-grid"></div>
         </div>
+      </div>
+      <div class="controls">
+        <button class="btn btn-restart">Start Over</button>
       </div>
     </div>
   `;

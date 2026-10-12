@@ -277,6 +277,10 @@ strong {
     flex-direction: column;
     gap: 1rem;
   }
+
+  .controls {
+    text-align: center;
+  }
 }
 
 .gameover {
