@@ -4,6 +4,7 @@ import { Gameover } from "./gameover.js";
 import { InitGame } from "./init_game.js";
 import { PlaceShips } from "./place_ships.js";
 import { Comms } from "./comms.js";
+import { Attribution } from "./attr.js";
 
 export function View() {
   const initGame = InitGame();
@@ -11,11 +12,13 @@ export function View() {
   const gameboard = Gameboard();
   const gameover = Gameover();
   const comms = Comms();
+  const attr = Attribution();
 
   const containerInitGameEl = $(".container-init-game");
   const containerPlaceShipsEl = $(".container-place-ships");
   const containerGameboardEl = $(".container-gameboard");
   const containerGameoverEl = $(".container-gameover");
+  const footerEl = $(".footer");
 
   const switchPage = (page) => {
     if (page !== "init-game") containerInitGameEl.innerHTML = "";
@@ -42,6 +45,9 @@ export function View() {
       gameover.render(containerGameoverEl);
     },
   };
+
+  footerEl.innerHTML = "";
+  attr.render(footerEl);
 
   return { initGame, placeShips, gameboard, gameover, comms, display };
 }
