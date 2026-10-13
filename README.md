@@ -2,11 +2,9 @@
 
 # Title
 
-This is a solution to the [challenge](url).
+This is a solution to the [Battleship project](https://www.theodinproject.com/lessons/node-path-javascript-battleship#project-solution) from The Odin Project.
 
 ## Links
 
-- Solution on [GitHub](url)
-- Live preview on [Netlify](url)
-
-## Attribution
+- Source code on [GitHub](https://github.com/sydalwedaie/odin-project-battleship)
+- Live preview on [Netlify](https://ugcy2-odin-project-battleship.netlify.app/)
