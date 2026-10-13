@@ -49,7 +49,10 @@ function handlePageGameboard(view, game) {
   };
 
   view.display.gameboard();
-  view.gameboard.loadData(getStateGameboard(), "<p>Ready</p>");
+  view.gameboard.loadData(
+    getStateGameboard(),
+    "<p>Start by shooting in enemy waters ...</p>",
+  );
   view.gameboard.bindClickShoot(playRound);
   view.gameboard.bindClickRestart(Controller().init);
 
@@ -67,7 +70,7 @@ function handlePageGameboard(view, game) {
     );
     view.gameboard.loadData(getStateGameboard(), msg);
     if (game.state.gameover) {
-      handlePageGameover(view, game);
+      setTimeout(() => handlePageGameover(view, game), 1500);
     }
   }
 
