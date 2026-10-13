@@ -1,6 +1,8 @@
 :root {
   --color-shadow: #3e3224;
   --box-shadow: 6px 6px var(--color-shadow);
+  --icon-target-not-allowed:
+    url("assets/icon-target-not-allowed.png") 16 16, pointer !important;
 }
 @import url("https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:wght@300;400;700&display=swap");
 
@@ -78,7 +80,7 @@ strong {
 
   &:disabled {
     background-color: wheat;
-    cursor: not-allowed;
+    cursor: var(--icon-target-not-allowed);
   }
 }
 
@@ -119,14 +121,14 @@ strong {
   justify-content: center;
   border: none;
 
-  &[disabled] {
-    cursor: not-allowed !important;
-  }
-
   .board-enemy & {
     cursor:
       url(assets/icon-target.png) 16 16,
       pointer;
+
+    &[disabled] {
+      cursor: var(--icon-target-not-allowed);
+    }
     &:hover:not([disabled]) {
       filter: brightness(0.9);
     }
@@ -137,7 +139,7 @@ strong {
   }
 
   .board-enemy .grid:not(.active) & {
-    cursor: not-allowed;
+    cursor: var(--icon-target-not-allowed);
   }
 
   &::after {
