@@ -59,7 +59,7 @@ function generateDOMinitGame() {
         </div>
       </div>
       <div class="controls">
-        <button class="btn btn-init-game">Initialize Game</button>
+        <button class="btn btn-init-game">Initialize Battle</button>
       </div>
     </div>
   `;
