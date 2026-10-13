@@ -3,3 +3,6 @@
 /archive
 tags
 *.vim
+
+# Local Netlify folder
+.netlify
