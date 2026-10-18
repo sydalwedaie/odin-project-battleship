@@ -3,7 +3,7 @@ import {
   validateOrientation,
   validateBounds,
   validateOverlap,
-} from "../helpers.js";
+} from "../helpers/validators.js";
 import { placeItem, createGrid } from "../helpers/grid.js";
 
 export function Gameboard() {

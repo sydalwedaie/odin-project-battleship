@@ -1,4 +1,4 @@
-import { validateBounds, validateOverlap } from "../helpers.js";
+import { validateBounds, validateOverlap } from "../helpers/validators.js";
 import { createGrid, placeItem } from "../helpers/grid.js";
 
 // Random generation helpers
