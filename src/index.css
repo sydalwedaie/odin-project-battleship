@@ -69,12 +69,12 @@ strong {
   padding-inline: 1rem;
   cursor: pointer;
 
-  &:hover:not([disabled]) {
+  &:hover:enabled {
     box-shadow: 5px 5px;
     filter: brightness(1.1);
   }
 
-  &:active:not([disabled]) {
+  &:active:enabled {
     box-shadow: 4px 4px;
   }
 
@@ -126,13 +126,13 @@ strong {
       url(assets/icon-target.png) 16 16,
       pointer;
 
-    &[disabled] {
+    &:disabled {
       cursor: var(--icon-target-not-allowed);
     }
-    &:hover:not([disabled]) {
+    &:hover:enabled {
       filter: brightness(0.9);
     }
-    &:active:not([disabled]) {
+    &:active:enabled {
       filter: brightness(0.9);
       border-top: 2px solid darkgoldenrod;
       border-left: 2px solid darkgoldenrod;
