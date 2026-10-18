@@ -1,5 +1,5 @@
 import { Player } from "./player.js";
-import { getRandomTarget } from "../helpers.js";
+import { getRandomTarget } from "../helpers/random.js";
 
 export function Game(player1Name, player2Name) {
   const player1 = Player(player1Name || "Player 1");

@@ -1,4 +1,5 @@
-import { generateDOM, html, $, getRandomPlacement } from "../helpers.js";
+import { generateDOM, html, $ } from "../helpers.js";
+import { getRandomPlacement } from "../helpers/random.js";
 import { GridPlayer } from "./grid.js";
 
 export function PlaceShips() {
