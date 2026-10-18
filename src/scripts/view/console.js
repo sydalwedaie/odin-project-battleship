@@ -1,5 +1,4 @@
 import { gridMap } from "../helpers.js";
-import { getPegPlayer, getPegEnemy } from "../helpers.js";
 
 export function ViewConsole({ currPlayer, currEnemy, gameover }) {
   const printBoard = (grid) => {
@@ -22,6 +21,10 @@ export function ViewConsole({ currPlayer, currEnemy, gameover }) {
 
   const printRound = () => {
     console.clear();
+    if (gameover) {
+      console.log(`Game Over! ${currPlayer} wins!`);
+      return;
+    }
     console.log("CURRENT PLAYER: ", currPlayer.name);
     printBoardAsTarget(currEnemy.gameboard.grid);
     printBoard(currPlayer.gameboard.grid);
@@ -30,4 +33,22 @@ export function ViewConsole({ currPlayer, currEnemy, gameover }) {
   };
 
   return { printBoard, printBoardAsTarget, printFleetStatus, printRound };
+}
+
+// Helpers
+
+function getPegPlayer(cell) {
+  if (cell.ship) {
+    return cell.ship.name[0] + (cell.isShut ? "X" : "");
+  } else {
+    return cell.isShut ? "O" : "";
+  }
+}
+
+function getPegEnemy(cell) {
+  if (cell.ship) {
+    return cell.isShut ? "X" : "";
+  } else {
+    return cell.isShut ? "O" : "";
+  }
 }
