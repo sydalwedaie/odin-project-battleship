@@ -1,7 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
 import { Gameboard } from "../src/scripts/game/gameboard.js";
 import { Ship } from "../src/scripts/game/ship.js";
-import { gridForEach } from "../src/scripts/helpers.js";
+import { gridForEach } from "../src/scripts/helpers/iterators.js";
 
 describe("Test Gameboard: grid", () => {
   const gameboard = Gameboard();

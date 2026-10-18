@@ -1,6 +1,7 @@
 import { Gameboard } from "./gameboard.js";
 import { Ship } from "./ship.js";
-import { getRandomPlacement, gridForEach } from "../helpers.js";
+import { getRandomPlacement } from "../helpers.js";
+import { gridForEach } from "../helpers/iterators.js";
 
 export function Player(name) {
   const gameboard = Gameboard();

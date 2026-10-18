@@ -1,4 +1,4 @@
-import { gridMap } from "../helpers.js";
+import { gridMap } from "../helpers/iterators.js";
 
 export function ViewConsole({ currPlayer, currEnemy, gameover }) {
   const printBoard = (grid) => {
