@@ -5,7 +5,9 @@ import "./template.html";
 import { ControllerConsole } from "./scripts/controller/console.js";
 import { Controller } from "./scripts/controller/controller.js";
 
-// const cController = ControllerConsole();
-// window.cController = cController;
+// Console view controller
+const consoleCtl = ControllerConsole();
+window.consoleCtl = consoleCtl;
 
+// Web view controller
 Controller().init();

@@ -12,7 +12,7 @@ export function ControllerConsole() {
 
   const playRound = (coords) => {
     game.playTurn(coords);
-    game.playTurnRandom();
+    game.playTurn(game.generateValidTargetRandom());
     view.printRound();
   };
 
