@@ -133,6 +133,7 @@ strong {
       filter: brightness(0.9);
     }
     &:active:not([disabled]) {
+      filter: brightness(0.9);
       border-top: 2px solid darkgoldenrod;
       border-left: 2px solid darkgoldenrod;
     }
