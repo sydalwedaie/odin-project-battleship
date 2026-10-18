@@ -2,7 +2,7 @@
 
 # The Odin Project - A Battleship Game
 
-This is a solution to the [Battleship project](https://www.theodinproject.com/lessons/node-path-javascript-battleship#project-solution) from The Odin Project. It is the capstone project of the JavaScript course, and the last project to be done in Vanilla JS/HTML/CSS.
+This is a solution to the [Battleship project](https://www.theodinproject.com/lessons/node-path-javascript-battleship) from The Odin Project. It is the capstone of the JavaScript course, and the last major project to be done in Vanilla JS/HTML/CSS.
 
 ## Links
 
@@ -18,7 +18,46 @@ $ npm install
 $ npm run serve
 ```
 
-Point your web browser to `http://localhost:8080/`. Make sure the port matches what Webpack prints after running the above code)
+Point your web browser to `http://localhost:8080/`. Make sure the port matches what Webpack prints after running the above code.
+
+## Table of Contents
+
+<!-- toc -->
+
+- [Project Structure](#project-structure)
+  - [The game model](#the-game-model)
+    - [The `Ship` module](#the-ship-module)
+    - [The `Gameboard` module](#the-gameboard-module)
+    - [The `Player` module](#the-player-module)
+    - [The `Game` module](#the-game-module)
+  - [The console view/controller](#the-console-viewcontroller)
+  - [The web view/controller](#the-web-viewcontroller)
+- [Design decisions](#design-decisions)
+  - [Use of factory functions vs. classes](#use-of-factory-functions-vs-classes)
+  - [Chaining methods vs. native APIs](#chaining-methods-vs-native-apis)
+  - [View modules with zero knowledge of the state](#view-modules-with-zero-knowledge-of-the-state)
+  - [View modules generating real DOM](#view-modules-generating-real-dom)
+  - [Error handling](#error-handling)
+- [How I did X](#how-i-did-x)
+  - [Create the grid](#create-the-grid)
+  - [Share functionality between factory functions](#share-functionality-between-factory-functions)
+  - [Iterate over 2 arrays](#iterate-over-2-arrays)
+  - [Disable the inactive grid](#disable-the-inactive-grid)
+  - [Disable shut cells](#disable-shut-cells)
+  - [Display ships](#display-ships)
+  - [Randomize ship placement](#randomize-ship-placement)
+  - [Switch views](#switch-views)
+- [Little JavaScript tips and tricks](#little-javascript-tips-and-tricks)
+- [Use of advanced Git concepts](#use-of-advanced-git-concepts)
+  - [Git Diffs in a GUI](#git-diffs-in-a-gui)
+  - [Commit pieces of a file](#commit-pieces-of-a-file)
+  - [Amend the previous commit](#amend-the-previous-commit)
+  - [Discard changes](#discard-changes)
+  - [Stashing](#stashing)
+- [Test Driven Development](#test-driven-development)
+- [Reflection](#reflection)
+
+<!-- tocstop -->
 
 ## Project Structure
 
@@ -56,13 +95,13 @@ The /src/scripts directory
     └── view.js
 ```
 
-## The game model
+### The game model
 
 > **Caution**: The code snippents throughout this README may not fully reflect the final implementation in the source code. They’re often intentionally modified to better demonstrate the concept.
 
 The main logic of the game (aka the Model) lives in the `src/scripts/game` directory. It includes factory functions for each part of the game. Each module exposes methods that can be used to control the game state. They have no knowledge of, and can not control, the **display** of game state in any shape or form.
 
-### The `Ship` module
+#### The `Ship` module
 
 **Job**: It takes a length and a name and produces an object that defines what a ship is and what it can do.
 
@@ -74,19 +113,16 @@ A ship does not know where on the board it is located, nor which part of it was 
 
 It also exposes `name` and `length` as properties of a ship.
 
-**Problem**: This factory had a `hitCount` static property and a function to increment it. I returned the static property as it, but that was a mistake. Although calling the increment function worked as intended, retrieving the static `hitCount` property wouldn’t show the update.
+> [!NOTE]
+> In the first iteration of this module, I returned the static property `hitCount` as is, which was a mistake. Although calling the increment function worked as intended, retrieving the static `hitCount` property wouldn’t show the update. The reason is that the returned `hitCount` property held the **initial value** at the time of initialization, which would be zero. It did not point to the actual `hitCount` property inside the factory. So I needed to create some sort of **getter** function to dynamically retrieve the updated value. And that’s why there is a `getHitCount` method on the `Ship` factory.
 
-The reason is that the returned `hitCount` property holds the initial value at the time of initialization, which is zero. It does not point to the actual `hitCount` property inside the factory. So I must create some sort of **getter** function to dynamically retrieve the updated value. And that’s why there is a `getHitCount` method on the `Ship` factory.
-
-### The `Gameboard` module
+#### The `Gameboard` module
 
 **Job:** It creates an object that holds the status of a single board.
 
-A physical game of Battleship has 4 boards: 2 for each player, a lower and upper board. The lower board (let’s call it the **player’s own board**) shows the player’s ships and marks the enemy’s shots with red pegs for hits and white pegs for misses. The upper board (let’s call it the **target board**) shows the player’s attempts at shooting the enemy, again marking hits with red pegs and misses with white.
+A physical game of Battleship has 4 boards: 2 for each player, a lower and upper board. The lower board (let’s call it the **player’s own board**) shows the player’s ships and marks the enemy’s shots with red pegs for hits and white pegs for misses. The upper board (let’s call it the **target board**) shows the player’s attempts at shooting the enemy, again marking shots with appropriate colors.
 
-If you think about it, a **target** board has the same information as the **player’s own board**. If a cell is shot, it will be marked with a peg on both. The only difference is how they’re displayed. A target board never displays ships until they're fully sunk. So we really need 2 boards in the game state: Player 1’s and Player 2’s.
-
-But a`gameboard` object created in this module has no knowledge of which player it belongs to, or whether it's a target board or a player’s own board. We will be using it in other modules to instantiate separate boards.
+If you think about it, a target board has the **same information** as the player’s own board. If a cell is shut, it will be marked with a peg on both. The only difference is how the ships are displayed. A target board never displays ships until they're fully sunk, while they're always visibile in the player's own board. So we really need 2 boards in the game state: Player 1’s and Player 2’s. Furthermore, a`gameboard` object created in this module does not even need to have knowledge of which player it belongs to. We will be using it in other modules to instantiate separate boards for each player.
 
 A board consists of 100 cells, arranged in a 2D array of arrays. The level-one arrays are the rows, of which there are 10. Each row array contains 10 cells. Each cell contains a reference to a ship and whether that cell is shut or not.
 
@@ -106,7 +142,7 @@ The concept of **registering an attack** also lives here. Again, a gameboard obj
 
 Finally, a `gameboard` object can determine if all of its ships have been sunk. A `allShipsAreSunk()` method loops over the `fleet` array and runs the `isSunk()` method from the `Ship` module on each ship.
 
-### The `Player` module
+#### The `Player` module
 
 **Job**: Takes a `name`, instantiates a `gameboard` object, and places 5 ships on the board.
 
@@ -119,7 +155,7 @@ const player = Player("cool player");
 player.gameboard.receiveAttack([1, 2]);
 ```
 
-### The `Game` module
+#### The `Game` module
 
 **Job**: Takes 2 player names, instantiates 2 player objects, and keeps track of the game state
 
@@ -165,7 +201,7 @@ game.playTurn(generateValidTargetRandom()); // Computer registers an attack on P
 
 The task of coordinating when to call by a user coordinate and when to call by a random target is done by the controller (discussed later).
 
-## The console view/controller
+### The console view/controller
 
 At this point, the game is fully playable from the console, though there is no visual whatsoever! This is my preferred method of designing games: to build a fully functional game logic first and to make it work in the console. Once I get the whole thing wired up and have a clear mental model, I start working on the web view/controller. If coded correctly, the `Game` module does not care which version is used to call its method.
 
@@ -177,7 +213,7 @@ Everything comes together in the `ControllerConsole` module. There, a `game` and
 
 Note the absence of any display-related code in the controller; aka no `console.log`s. That job is purely for the View module. The controller only **wires** the model with the view, acting as a bridge to pass along the game state from the game (the model) to the view. The controller is the module that calls each of the game/view methods in a specific order to run the show.
 
-## The web view/controller
+### The web view/controller
 
 All web view logic lives in the `/src/scripts/view` directory. There are two types of view modules: **components** and **pages**. A component is something that can be rendered on multiple pages. Similar to how the game modules were all aggregated in one `Game` module, there’s a `View` module in `view.js` that instantiates all the components and exposes them through a unified API.
 
