@@ -1,4 +1,4 @@
-import { generateDOM, html } from "../helpers.js";
+import { generateDOM, html } from "../helpers/dom.js";
 
 export function Attribution() {
   const data = {

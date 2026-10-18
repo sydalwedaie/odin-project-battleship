@@ -1,4 +1,4 @@
-import { $ } from "../helpers.js";
+import { $ } from "../helpers/dom.js";
 import { Gameboard } from "./gameboard.js";
 import { Gameover } from "./gameover.js";
 import { InitGame } from "./init_game.js";

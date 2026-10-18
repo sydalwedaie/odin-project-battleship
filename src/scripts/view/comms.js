@@ -1,4 +1,4 @@
-import { html } from "../helpers.js";
+import { html } from "../helpers/dom.js";
 
 export function Comms() {
   const getMsgWelcome = (namePlayer1, namePlayer2) => {

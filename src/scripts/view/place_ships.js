@@ -1,4 +1,4 @@
-import { generateDOM, html, $ } from "../helpers.js";
+import { generateDOM, html, $ } from "../helpers/dom.js";
 import { getRandomPlacement } from "../helpers/random.js";
 import { GridPlayer } from "./grid.js";
 

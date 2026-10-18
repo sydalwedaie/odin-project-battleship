@@ -1,4 +1,4 @@
-import { $, html, generateDOM } from "../helpers.js";
+import { $, html, generateDOM } from "../helpers/dom.js";
 import { GridPlayer, GridEnemy } from "./grid.js";
 
 export function Gameboard() {

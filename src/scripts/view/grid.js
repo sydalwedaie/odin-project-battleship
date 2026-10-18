@@ -1,4 +1,4 @@
-import { generateDOM, html, $ } from "../helpers.js";
+import { generateDOM, html, $ } from "../helpers/dom.js";
 import { gridForEach } from "../helpers/iterators.js";
 import { addClass } from "../helpers/ship.js";
 
