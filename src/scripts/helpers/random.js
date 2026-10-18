@@ -1,9 +1,5 @@
-import {
-  createGrid,
-  validateBounds,
-  validateOverlap,
-  placeItem,
-} from "../helpers.js";
+import { validateBounds, validateOverlap } from "../helpers.js";
+import { createGrid, placeItem } from "../helpers/grid.js";
 
 // Random generation helpers
 const randomNum = (ceiling) => Math.floor(Math.random() * ceiling);

@@ -25,58 +25,6 @@ export const validateOverlap = (grid, length, [row, col, orientation]) => {
   return true;
 };
 
-// Random generation helpers
-
-const randomNum = (ceiling) => Math.floor(Math.random() * ceiling);
-
-export const getRandomTarget = () => {
-  return [randomNum(10), randomNum(10)];
-};
-
-export const getRandomPos = () => {
-  const orientation = ["h", "v"][randomNum(2)];
-  return [randomNum(10), randomNum(10), orientation];
-};
-
-export const getRandomPlacement = () => {
-  const grid = createGrid();
-  const formation = [];
-  const ships = [
-    [5, "Carrier"],
-    [4, "Battleship"],
-    [3, "Destroyer"],
-    [3, "Submarine"],
-    [2, "Patrol Boat"],
-  ];
-
-  ships.forEach(([length, name], index) => {
-    while (formation.length === index) {
-      const pos = getRandomPos();
-      if (!validateBounds(length, pos)) continue;
-      if (!validateOverlap(grid, length, pos)) continue;
-      placeItem(grid, { name }, length, pos);
-      formation.push(pos);
-    }
-  });
-
-  return { grid, formation };
-};
-
-export function createGrid() {
-  const cell = () => ({ ship: null, isShut: false });
-  const row = () => Array(10).fill().map(cell);
-  return Array(10).fill().map(row);
-}
-
-export const placeItem = (grid, item, length, [row, col, orientation]) => {
-  for (let i = 0; i < length; i++) {
-    let cell;
-    if (orientation === "h") cell = grid[row][col + i];
-    if (orientation === "v") cell = grid[row + i][col];
-    cell.ship = item;
-  }
-};
-
 // DOM helpers
 
 export function generateDOM(htmlString) {

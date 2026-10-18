@@ -3,9 +3,8 @@ import {
   validateOrientation,
   validateBounds,
   validateOverlap,
-  placeItem,
-  createGrid,
 } from "../helpers.js";
+import { placeItem, createGrid } from "../helpers/grid.js";
 
 export function Gameboard() {
   // Create empty grid

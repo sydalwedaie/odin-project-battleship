@@ -1,6 +1,6 @@
 import { describe, expect, test } from "@jest/globals";
 import { Player } from "../src/scripts/game/player.js";
-import { createGrid } from "../src/scripts/helpers.js";
+import { createGrid } from "../src/scripts/helpers/grid.js";
 
 describe("Test factory: Player", () => {
   test("should return name of player", () => {
