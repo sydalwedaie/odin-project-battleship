@@ -8,12 +8,12 @@ export function ControllerConsole() {
   game.player1.placeShipsRandom();
   game.player2.placeShipsRandom();
 
-  view.printRound();
+  view.printTurn();
 
   const playRound = (coords) => {
     game.playTurn(coords);
     game.playTurn(game.generateValidTargetRandom());
-    view.printRound();
+    view.printTurn();
   };
 
   return { game, playRound };

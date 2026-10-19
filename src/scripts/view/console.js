@@ -19,7 +19,7 @@ export function ViewConsole({ currPlayer, currEnemy, gameover }) {
     );
   };
 
-  const printRound = () => {
+  const printTurn = () => {
     console.clear();
     if (gameover) {
       console.log(`Game Over! ${currPlayer} wins!`);
@@ -32,7 +32,7 @@ export function ViewConsole({ currPlayer, currEnemy, gameover }) {
     printFleetStatus(currEnemy.gameboard.fleet);
   };
 
-  return { printBoard, printBoardAsTarget, printFleetStatus, printRound };
+  return { printBoard, printBoardAsTarget, printFleetStatus, printTurn };
 }
 
 // Helpers
