@@ -4,7 +4,30 @@
   --icon-target-not-allowed:
     url("assets/icon-target-not-allowed.png") 16 16, pointer !important;
 }
-@import url("https://fonts.googleapis.com/css2?family=Iosevka+Charon+Mono:wght@300;400;700&display=swap");
+
+@font-face {
+  font-family: "Iosevka Charon Mono";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("assets/iosevka-light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Iosevka Charon Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/iosevka-regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Iosevka Charon Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/iosevka-bold.woff2") format("woff2");
+}
 
 body {
   padding: 1rem;
