@@ -102,11 +102,14 @@ strong {
   height: 4rem;
   background-color: goldenrod;
   box-shadow: var(--box-shadow);
-  color: black;
   border: none;
   font-size: 1.2rem;
   padding-inline: 1rem;
   cursor: pointer;
+
+  &:enabled {
+    color: black;
+  }
 
   &:hover:enabled {
     box-shadow: 5px 5px;
