@@ -31,8 +31,9 @@
 
 body {
   padding: 1rem;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
+  gap: 1rem;
   flex-direction: column;
   align-items: center;
   background-color: antiquewhite;
@@ -40,9 +41,12 @@ body {
 }
 
 header {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 300;
   padding-top: 1rem;
+  @media (min-width: 25rem) {
+    font-size: 2rem;
+  }
 }
 
 main,
@@ -69,17 +73,28 @@ strong {
 .card-header {
   color: white;
   background-color: darkgoldenrod;
-  font-size: 1.2rem;
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
+
+  @media (min-width: 45rem) {
+    font-size: 1.2rem;
+  }
+
+  &.board-title {
+    box-shadow: var(--box-shadow);
+  }
 }
 
 .card-content {
   background-color: burlywood;
-  padding: 1rem;
+  height: 100%;
+  padding: 0.5rem;
+  @media (min-width: 45rem) {
+    padding: 1rem;
+  }
 }
 
 .btn {
@@ -87,6 +102,7 @@ strong {
   height: 4rem;
   background-color: goldenrod;
   box-shadow: var(--box-shadow);
+  color: black;
   border: none;
   font-size: 1.2rem;
   padding-inline: 1rem;
@@ -116,6 +132,11 @@ strong {
   grid-template-columns: repeat(11, 2rem);
   grid-template-rows: repeat(11, 2rem);
   gap: 1px;
+
+  @media (max-width: 53rem) {
+    grid-template-columns: repeat(11, 1.5rem);
+    grid-template-rows: repeat(11, 1.5rem);
+  }
 
   padding-right: 1px;
   padding-bottom: 1px;
@@ -171,6 +192,11 @@ strong {
     border-radius: 50%;
     height: 0.9rem;
     width: 0.9rem;
+
+    @media (max-width: 45rem) {
+      height: 0.6rem;
+      width: 0.6rem;
+    }
   }
 
   &.peg-hit::after {
@@ -249,6 +275,7 @@ strong {
     input {
       flex: 1;
       border: none;
+      border-radius: 0;
       height: 2rem;
       background-color: navajowhite;
       padding-inline: 1rem;
@@ -265,10 +292,19 @@ strong {
   display: flex;
   gap: 2rem;
 
+  @media (max-width: 39rem) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .wrapper-info {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    max-width: 28rem;
+    @media (max-width: 45rem) {
+      gap: 1rem;
+    }
   }
 
   .wrapper-grid {
@@ -291,38 +327,79 @@ strong {
 .gameboard {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-
-  .wrapper-info {
-    display: flex;
+  gap: 1rem;
+  @media (min-width: 45rem) {
     gap: 2rem;
   }
 
+  .wrapper-info {
+    display: flex;
+    gap: 1rem;
+    @media (min-width: 45rem) {
+      gap: 2rem;
+    }
+  }
+
   .messages {
+    display: none;
+    @media (min-width: 40rem) {
+      display: initial;
+    }
+
     .comms {
       height: calc(3lh + 2rem);
+      font-size: 0.85rem;
+      overflow: scroll;
+
+      @media (min-width: 45rem) {
+        font-size: 1rem;
+      }
     }
   }
 
   .player-status {
     .player-active {
-      font-size: 3rem;
-      text-align: center;
+      font-size: 2rem;
       text-transform: uppercase;
       font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media (min-width: 53rem) {
+        font-size: 3rem;
+      }
     }
   }
 
   .wrapper-boards {
     display: flex;
-    align-items: center;
-    gap: 2rem;
+    flex-direction: column;
+    @media (min-width: 40rem) {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+    @media (min-width: 45rem) {
+      gap: 2rem;
+    }
   }
 
   .board {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    &:not(:has(.active)) .board-title {
+      @media (max-width: 40rem) {
+        display: none;
+      }
+    }
+
+    .grid:not(.active) {
+      @media (max-width: 40rem) {
+        display: none;
+      }
+    }
   }
 
   .controls {
@@ -340,7 +417,7 @@ strong {
 
 .attribution {
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 
   a {
     color: royalblue;
