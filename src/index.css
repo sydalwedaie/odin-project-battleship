@@ -167,6 +167,7 @@ strong {
   align-items: center;
   justify-content: center;
   border: none;
+  padding: 0;
 
   .board-enemy & {
     cursor:
@@ -196,7 +197,7 @@ strong {
     height: 0.9rem;
     width: 0.9rem;
 
-    @media (max-width: 45rem) {
+    @media (max-width: 53rem) {
       height: 0.6rem;
       width: 0.6rem;
     }
